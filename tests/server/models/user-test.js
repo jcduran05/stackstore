@@ -2,10 +2,12 @@ var sinon = require('sinon');
 var expect = require('chai').expect;
 
 var Sequelize = require('sequelize');
+var Promise = require('bluebird')
 
 var db = require('../../../server/db');
 
 var User = db.model('user');
+var Product = db.model('product');
 
 describe('User model', function () {
 
@@ -145,6 +147,51 @@ describe('User model', function () {
                     expect(sanitizedUser.salt).to.be.undefined;
                 });
             });
+        });
+
+        describe('getter', function () {
+
+            var createUser = function () {
+                return User.create({ email: 'obama@gmail.com', password: 'potus' });
+            };
+
+            var createProduct1 = function () {
+                return Product.create({ firstName: 'obama', lastName: 'obama' });
+            };
+
+            var createProduct2 = function () {
+                return Product.create({ firstName: 'obama2', lastName: 'obama2' });
+            };
+
+            it('should create associations', function () {
+
+                Promise.all([createUser(), createProduct1(), createProduct2()])
+                .spread(function (user, product1, product2) {
+                    console.log('here')
+                    return Promise.all([user.setOwned([product2, product1]), user])
+                })
+                .spread(function (something, user){
+                    console.log(user)
+                    return user.getOwned()
+                })
+                .then(function (politicians){
+                    console.log(politicians)
+                })
+            });
+
+        });
+
+        xdescribe('getter', function () {
+
+            it('should create associations', function () {
+
+               return User.findById(1)
+                .then((user) => {
+                    user.addToCart(1)
+                })
+
+            });
+
         });
 
     });
