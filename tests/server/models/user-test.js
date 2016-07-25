@@ -149,7 +149,7 @@ describe('User model', function () {
             });
         });
 
-        describe('getter', function () {
+        xdescribe('getter', function () {
 
             var createUser = function () {
                 return User.create({ email: 'obama@gmail.com', password: 'potus' });
