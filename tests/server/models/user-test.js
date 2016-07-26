@@ -8,6 +8,9 @@ var db = require('../../../server/db');
 
 var User = db.model('user');
 var Product = db.model('product');
+var Order = db.model('order')
+var Detail = db.model('detail')
+
 
 describe('User model', function () {
 
@@ -149,7 +152,7 @@ describe('User model', function () {
             });
         });
 
-        xdescribe('getter', function () {
+        describe('getter', function () {
 
             var createUser = function () {
                 return User.create({ email: 'obama@gmail.com', password: 'potus' });
@@ -162,37 +165,70 @@ describe('User model', function () {
             var createProduct2 = function () {
                 return Product.create({ firstName: 'obama2', lastName: 'obama2' });
             };
+            var createOrder = function(){
+                return Order.create({total:5})
+            }
+            it('status and confirmation should be set', function(){
+                return createOrder()
+                .then(function(order){
+                expect(order.status).to.be.equal('Pending')
+                console.log(order.confirmation)
+                expect(order.confirmation).to.be.ok
+                })
+            })
 
             it('should create associations', function () {
 
-                Promise.all([createUser(), createProduct1(), createProduct2()])
+                return Promise.all([createUser(), createProduct1(), createProduct2()])
                 .spread(function (user, product1, product2) {
-                    console.log('here')
                     return Promise.all([user.setOwned([product2, product1]), user])
                 })
                 .spread(function (something, user){
-                    console.log(user)
+                    return Promise.all([user.getOwned(), user])
+                })
+                .spread(function (politicians, user){
+                    expect(politicians[0].userId).to.be.equal(user.id);
+                })
+            });
+
+            // it('creates Users', function)
+
+            it('we can add and deleted items from cart', function () {
+               return Promise.all([createUser(), createProduct1()]) 
+                .spread(function(user, product) {
+                    return Promise.all([user.setCart(product), user, product])
+                }).spread(function(item, user, product){
+                    return Promise.all([user.getCart(),user, product])
+                }).spread(function(cart, user, product){
+                    expect(cart.length).to.be.equal(1)
+                    return Promise.all([user, user.removeCart(product) ]) 
+                }).spread(function(user){
+                    return user.getCart()
+                }).then(function(cart){
+                    expect(cart.length).to.be.equal(0)
+                })
+               
+            });
+            it('we can add and deleted items from Owned', function () {
+               return Promise.all([createUser(), createProduct1()]) 
+                .spread(function(user, product) {
+                    return Promise.all([user.setOwned(product), user, product])
+                }).spread(function(item, user, product){
+                    return Promise.all([user.getOwned(),user, product])
+                }).spread(function(Owned, user, product){
+                    expect(Owned.length).to.be.equal(1)
+                    return Promise.all([user, user.removeOwned(product) ]) 
+                }).spread(function(user){
                     return user.getOwned()
+                }).then(function(Owned){
+                    expect(Owned.length).to.be.equal(0)
                 })
-                .then(function (politicians){
-                    console.log(politicians)
-                })
+               
             });
+
 
         });
 
-        xdescribe('getter', function () {
-
-            it('should create associations', function () {
-
-               return User.findById(1)
-                .then((user) => {
-                    user.addToCart(1)
-                })
-
-            });
-
-        });
 
     });
 
