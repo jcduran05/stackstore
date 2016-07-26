@@ -5,7 +5,7 @@ var Sequelize = require('sequelize');
 
 var db = require('../_db');
 
-module.exports = db.define('product', {
+module.exports = db.define("product", {
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
     party: Sequelize.STRING,
