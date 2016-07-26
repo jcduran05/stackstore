@@ -8,7 +8,8 @@ var db = require('../_db');
 module.exports = db.define('user', {
     email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     password: {
         type: Sequelize.STRING
@@ -24,9 +25,9 @@ module.exports = db.define('user', {
     // },
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
-    isAdmin: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+    status: {
+        type: Sequelize.ENUM('guest', 'registered', 'admin'),
+         defaultValue: 'guest'
     },
     creditCard: {
         type: Sequelize.INTEGER //eventually encrypt information
@@ -41,6 +42,12 @@ module.exports = db.define('user', {
         },
         correctPassword: function (candidatePassword) {
             return this.Model.encryptPassword(candidatePassword, this.salt) === this.password;
+        },
+        changeStatus: function (newStatus) {
+            newStatus = newStatus.toLowerCase();
+            if (newStatus !== 'guest' || newStatus !== 'registered' || newStatus !== 'admin') return;
+            this.status = newStatus;
+            // might change to return the status
         }
     },
     classMethods: {

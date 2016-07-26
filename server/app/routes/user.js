@@ -4,24 +4,60 @@ module.exports = router;
 var db = require('../../db')
 var User = db.model('user')
 
+// GET Routes
 router.get('/', function (req, res, next){
-  console.log(req.session)
   //check the session ID and make sure user isAdmin
-
   User.findAll()
   .then(function (users){
     res.send(users)
   }).catch(next)
-
 })
 
 router.get('/:id', function (req, res, next){
-
   // check that user is current user or Admin
-
   User.findById(req.params.id)
   .then(function (user){
     res.send(user)
   }).catch(next)
+})
+
+// DELETE Routes
+router.delete('/:id', function (req, res, next){
+  // check that user is current user or Admin
+  User.findById(req.params.id)
+  .then(function (user){
+    if (!user) throw {status:404, message:'User not found.'};
+    else return user.destroy()
+  })
+  .then(function(user){
+    res.status(204).send(user);
+  }).catch(next);
+})
+
+// PUT Routes
+router.put('/:id', function (req, res, next){
+  // check that user is current user or Admin
+  User.findById(req.params.id)
+  .then(function (user){
+    if (!user) throw {status: 400, message:'User already exists'};
+    else return user.update(req.body);
+  })
+  .then(function(user){
+    res.status(200).send(user);
+  }).catch(next);
+})
+
+// POST Routes
+router.post('/', function (req, res, next){
+  // check that user is current user or Admin
+  User.findOrCreate({
+    where: {
+      email: req.body.email
+    }
+  })
+  .spread(function (user, created){
+    if(!created) throw {status: 400, message:'User already exists'};
+    else res.status(200).send(user);
+  }).catch(next);
 })
 
