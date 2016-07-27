@@ -52,8 +52,11 @@ router.post('/', function (req, res, next){
   // check that user is current user or Admin
   User.create(req.body)
   .then(function (user){
-    user.newStatus('registered');
+    return user.changeStatus('registered');
+  })
+  .then(function(user) {
     res.status(200).send(user);
-  }).catch(next);
+  })
+  .catch(next);
 })
 

@@ -26,7 +26,7 @@ module.exports = db.define('user', {
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
     status: {
-        type: Sequelize.ENUM('guest', 'registered', 'admin'),
+        type: Sequelize.STRING,
          defaultValue: 'guest'
     },
     creditCard: {
@@ -45,10 +45,9 @@ module.exports = db.define('user', {
         },
         changeStatus: function (newStatus) {
             newStatus = newStatus.toLowerCase();
-            if (newStatus !== 'guest' || newStatus !== 'registered' || newStatus !== 'admin') return;
-            this.status = newStatus;
-            return this.status
-            // might change to return the status
+            if (newStatus === 'guest') return;
+
+            return this.update({ status: newStatus});
         }
     },
     classMethods: {

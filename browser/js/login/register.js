@@ -12,12 +12,13 @@ app.controller('RegisterCtrl', function($scope, $state, RegisterFactory, AuthSer
     $scope.sendRegister = function(){
         RegisterFactory.create($scope.register)
         .then(function(){
-        let obj = {email: $scope.register.email, password: $scope.register.password}
-        AuthService.login(obj).then(function () {
-            $state.go('home');
-        }).catch(function () {
-            $scope.error = 'Invalid login credentials.';
-        });
+            let obj = {email: $scope.register.email, password: $scope.register.password}
+
+            AuthService.login(obj).then(function () {
+                $state.go('home');
+            }).catch(function () {
+                $scope.error = 'Invalid login credentials.';
+            });
         })
         .catch(function(){
             $scope.error = 'Email is already registered!'
