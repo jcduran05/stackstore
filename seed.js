@@ -67,7 +67,7 @@ var seedUsers = function () {
         lastName: 'Trump'
     }))
 
-    return Promise.all(creatingUsers, creatingSenators);
+    return Promise.all(creatingUsers);
 
 };
 
@@ -75,6 +75,9 @@ var seedUsers = function () {
 db.sync({ force: true })
     .then(function () {
         return Product.bulkCreate(seedSenators);
+    })
+    .then(function() {
+        return seedUsers();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
