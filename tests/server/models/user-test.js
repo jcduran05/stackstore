@@ -9,7 +9,6 @@ var db = require('../../../server/db');
 var User = db.model('user');
 var Product = db.model('product');
 var Order = db.model('order')
-var Detail = db.model('detail')
 
 
 describe('User model', function () {
@@ -159,7 +158,7 @@ describe('User model', function () {
             };
 
             var createProduct1 = function () {
-                return Product.create({ firstName: 'obama', lastName: 'obama' });
+                return Product.create({ firstName: 'obama', lastName: 'obama', bought: true });
             };
 
             var createProduct2 = function () {
@@ -177,14 +176,24 @@ describe('User model', function () {
                 })
             })
 
-            it('should create associations', function () {
+            it('should confirm purchases', function () {
+
+                return Promise.all([createProduct1(), createProduct2()])
+                .then(() => Product.checkBought([{id:1}, {id: 2}]))
+                .then(confirm => {
+                    console.log(confirm)
+                    expect(confirm.length).to.be.equal(2)
+                })
+            });
+
+            xit('should create associations', function () {
 
                 return Promise.all([createUser(), createProduct1(), createProduct2()])
                 .spread(function (user, product1, product2) {
-                    return Promise.all([user.setOwned([product2, product1]), user])
+                    return Promise.all([user.setCart([product2, product1]), user])
                 })
                 .spread(function (something, user){
-                    return Promise.all([user.getOwned(), user])
+                    return Promise.all([user.getCart(), user])
                 })
                 .spread(function (politicians, user){
                     expect(politicians[0].userId).to.be.equal(user.id);
@@ -193,37 +202,37 @@ describe('User model', function () {
 
             // it('creates Users', function)
 
-            it('we can add and deleted items from cart', function () {
-               return Promise.all([createUser(), createProduct1()]) 
+            xit('we can add and deleted items from cart', function () {
+               return Promise.all([createUser(), createProduct1()])
                 .spread(function(user, product) {
                     return Promise.all([user.setCart(product), user, product])
                 }).spread(function(item, user, product){
                     return Promise.all([user.getCart(),user, product])
                 }).spread(function(cart, user, product){
                     expect(cart.length).to.be.equal(1)
-                    return Promise.all([user, user.removeCart(product) ]) 
+                    return Promise.all([user, user.removeCart(product) ])
                 }).spread(function(user){
                     return user.getCart()
                 }).then(function(cart){
                     expect(cart.length).to.be.equal(0)
                 })
-               
+
             });
-            it('we can add and deleted items from Owned', function () {
-               return Promise.all([createUser(), createProduct1()]) 
+            xit('we can add and deleted items from Owned', function () {
+               return Promise.all([createUser(), createProduct1()])
                 .spread(function(user, product) {
                     return Promise.all([user.setOwned(product), user, product])
                 }).spread(function(item, user, product){
                     return Promise.all([user.getOwned(),user, product])
                 }).spread(function(Owned, user, product){
                     expect(Owned.length).to.be.equal(1)
-                    return Promise.all([user, user.removeOwned(product) ]) 
+                    return Promise.all([user, user.removeOwned(product) ])
                 }).spread(function(user){
                     return user.getOwned()
                 }).then(function(Owned){
                     expect(Owned.length).to.be.equal(0)
                 })
-               
+
             });
 
 
