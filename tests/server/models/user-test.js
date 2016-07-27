@@ -158,7 +158,7 @@ describe('User model', function () {
             };
 
             var createProduct1 = function () {
-                return Product.create({ firstName: 'obama', lastName: 'obama' });
+                return Product.create({ firstName: 'obama', lastName: 'obama', bought: true });
             };
 
             var createProduct2 = function () {
@@ -176,6 +176,16 @@ describe('User model', function () {
                 })
             })
 
+            it('should confirm purchases', function () {
+
+                return Promise.all([createProduct1(), createProduct2()])
+                .then(() => Product.checkBought([{id:1}, {id: 2}]))
+                .then(confirm => {
+                    console.log(confirm)
+                    expect(confirm.length).to.be.equal(2)
+                })
+            });
+
             xit('should create associations', function () {
 
                 return Promise.all([createUser(), createProduct1(), createProduct2()])
@@ -192,7 +202,7 @@ describe('User model', function () {
 
             // it('creates Users', function)
 
-            it('we can add and deleted items from cart', function () {
+            xit('we can add and deleted items from cart', function () {
                return Promise.all([createUser(), createProduct1()])
                 .spread(function(user, product) {
                     return Promise.all([user.setCart(product), user, product])

@@ -8,92 +8,51 @@ var Order = db.model('order')
 var Promise = require('bluebird')
 
 router.get('/', function(req, res, next){
-	User.findById(req.user.id)
-	.then(function(user){
-		return user.getCart()
-	}).then(function(cart){
-		res.send(cart)
-	}).catch(next)
+	res.send(req.session.cart ? req.session.cart : [])
 })
 
 router.post('/add/:id', function(req, res, next){
-	User.findById(req.user.id)
-	.then(function(user){
-		return Promise.all([user, Product.findById(req.params.id)])
-
-	}).spread(function(user, product){
-		return user.setCart(product)
-	}).then(function(cart){
-		res.send("added to cart")
-	}).catch(next)
+  Product.findById(req.params.id)
+  .then(product => {
+    if (product.bought) return
+    if (!req.session.cart) req.session.cart = [];
+    req.session.cart.push(product)
+    res.send(req.session.cart)
+  })
 })
 
-router.delete('/add/:id', function(req, res, next){
-	User.findById(req.user.id)
-	.then(function(user){
-		return Promise.all([user, Product.findById(req.params.id)])
-
-	}).spread(function(user, product){
-		return user.removeCart(product)
-	}).then(function(cart){
-		res.send("removed from cart")
-	}).catch(next)
+router.delete('/delete/:id', function(req, res, next){
+  Product.findById(req.params.id)
+  .then(product => {
+    // if (!req.session.cart) req.session.cart = [];
+    req.session.cart.splice(req.session.cart.indexOf(product), 1)
+  })
 })
 
 router.post('/checkout', function (req, res, next){
-	// User.findById(req.user.id)
-	// .then((user) => {
-	// 	return user.checkout()
-	// })
-	// .spread( (user, cart, products) => {
-	// 	if (cart.length + products.length > 5) { throw new Error("not found!")} //do something
-	// 	if (!cart.length) { throw new Error("invalid: too little products")}//do something else
-	// 	let total = 0
-	// 	products.forEach((product) => {
-	// 		total += product.price;
-	// 	})
-	// 	let pending = []
-	// 	cart.forEach((item) => {
-	// 		item.bought = true;
-	// 		item.dateBought = new Date();
-	// 		// item.save()
-	// 		// .catch(next)
-	// 	});
-	// 	cart.forEach((item) => {
-	// 		pending.push(user.setOwned(item));
-	// 		pending.push(user.removeCart(item))
-	// 	});
-	// 	console.log(pending)
-	// 	pending.unshift(user)
-	// 	pending.unshift(total)
-	// 	return Promise.all(pending)
-	// })
-	// .spread((total, user) => {
-	// 	return Promise.all([user.getOwned(), Order.create({total: total})])
-	// })
-	// .spread((products, order) => {
-	// 	let orders = products.map((product) => order.setPurchase(product));
-	// 	orders.unshift(order)
-	// 	return Promise.all([order, orders])
-	// })
-
   User.findById(req.user.id)
   .then(user => {
-    return Promise.all([user.getCart(), user])
+    return Promise.all([user.getProducts(), user, Product.checkBought(req.session.cart)])
   })
-  .spread((cart, user) => {
-    user.clearCart();
-    return Promise.all([Order.checkout(cart), user])
+  .spread((owned, user, confirmation) => {
+    req.session.cart = req.session.cart.filter((item, i) => !confirmation[i])
+    if (owned.length + req.session.cart.length > 5) {
+      throw new Error ('too many items in cart')
+    }//do something on front end
+    if (!req.session.cart.length){
+      throw new Error('no items in cart')
+    }//do something on front end
+    return Promise.all([Order.create({
+      productPrices: req.session.cart.map((item) => item.price),
+      productNames: req.session.cart.map((item) => item.firstName +' '+item.lastName)
+    }), user])
   })
-  .spread((order, user) => {
-    order.setUser(user);
-    return order
-  })
-	.then((order) => {
-    console.log('end of checkout')
-		res.send(order)
-	})
-	.catch(next)
+  .spread((order, user) =>{
+    user.addOrder(order)
+    Product.setBought(req.session.cart, user, order)
+    req.session.cart = []
+    res.send({order: order})
+  }).catch(next)
 }) //get user, cart, products of the user -> check the cart length against products length (max 5 min 1) -> orderStatus/  politician.bought/ politician.dateBought, detail
 
 

@@ -9,10 +9,11 @@ var Order = require('./models/orders').Order
 
 Product.belongsTo(User);
 
-User.hasMany(Product, {as: 'cart'});
+User.hasMany(Product);
 
 Order.belongsTo(User);
-Order.hasMany(Product, {as: 'purchased'});
+User.hasMany(Order);
+Order.hasMany(Product);
 // Detail.belongsTo(Order);
 // Detail.hasMany(Product, {as: 'purchase'} );
 

@@ -16,15 +16,15 @@ module.exports = {
 			defaultValue: 'Pending'
 		},
     productPrices: Sequelize.ARRAY(Sequelize.INTEGER),
-    products: Sequelize.ARRAY(Sequelize.STRING)
+    productNames: Sequelize.ARRAY(Sequelize.STRING)
 	},{
     classMethods: {
-      checkout: function (cart){
-        return this.create({
-          productPrices: cart.map((item) => item.price),
-          products: cart.map((item) => item.firstName)
-        })
-      }
+      // checkout: function (cart){
+      //   return this.create({
+      //     productPrices: cart.map((item) => item.price),
+      //     products: cart.map((item) => item.firstName)
+      //   })
+      // }
     },
 		hooks: {
 			beforeCreate: function(order){
