@@ -1,0 +1,10 @@
+<div class="col-md-12">
+  <h1>All users</h1>
+  <div ng-repeat="user in users">
+    <span>{{ user.email }}</span>
+    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(user.id)">
+      <span class="glyphicon glyphicon glyphicon-remove"></span>
+    </button>
+  </div>
+
+</div>
