@@ -21,7 +21,29 @@ var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
 var Product = db.model('product')
+var fs = require('fs');
+var politicians = fs.readFileSync('./senators.json', 'utf8');
+var politiciansObj = JSON.parse(politicians);
 var Promise = require('sequelize').Promise;
+
+var seedSenators = [];
+for (var idx in politiciansObj.objects) {
+  var politicianObj = politiciansObj.objects[idx];
+
+  var politicianParty = politicianObj.party;
+
+  var politician = {
+    firstName: politicianObj.person.firstname,
+    lastName: politicianObj.person.lastname,
+    party: politicianObj.party,
+    role: politicianObj.role_type,
+    state: politicianObj.state,
+    website: politicianObj.website,
+    price: Math.floor(Math.random() * 1000000)
+  };
+
+  seedSenators.push(politician);
+}
 
 var seedUsers = function () {
 
@@ -45,14 +67,14 @@ var seedUsers = function () {
         lastName: 'Trump'
     }))
 
-    return Promise.all(creatingUsers);
+    return Promise.all(creatingUsers, creatingSenators);
 
 };
 
+
 db.sync({ force: true })
     .then(function () {
-
-        return seedUsers();
+        return Product.bulkCreate(seedSenators);
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));

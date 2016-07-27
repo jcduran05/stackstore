@@ -11,6 +11,9 @@ module.exports = db.define("product", {
     lastName: Sequelize.STRING,
     party: Sequelize.STRING,
     price: Sequelize.INTEGER,
+    picurl: Sequelize.STRING,
+    website: Sequelize.STRING,
+    state: Sequelize.STRING,
     bought: Sequelize.BOOLEAN,
     dateBought: Sequelize.DATE,
     rating: {
