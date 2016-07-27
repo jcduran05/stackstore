@@ -41,42 +41,56 @@ router.delete('/add/:id', function(req, res, next){
 })
 
 router.post('/checkout', function (req, res, next){
-	User.findById(req.user.id)
-	.then((user) => {
-		return Promise.all([user, user.getCart(), user.getOwned()])
-	})
-	.spread( (user, cart, products) => {
-		if (cart.length + products.length > 5) { throw new Error("not found!")} //do something
-		if (!cart.length) { throw new Error("invalid: too little products")}//do something else
-		let total = 0
-		products.forEach((product) => {
-			total += product.price;
-		})
-		let pending = []
-		cart.forEach((item) => {
-			item.bought = true;
-			item.dateBought = new Date();
-			// item.save()
-			// .catch(next)
-		});
-		cart.forEach((item) => {
-			pending.push(user.setOwned(item));
-			pending.push(user.removeCart(item))
-		});
-		console.log(pending)
-		pending.unshift(user)
-		pending.unshift(total)
-		return Promise.all(pending)
-	})
-	.spread((total, user) => {
-		return Promise.all([user.getOwned(), Order.create({total: total})])
-	})
-	.spread((products, order) => {
-		let orders = products.map((product) => order.setPurchase(product));
-		orders.unshift(order)
-		return Promise.all([order, orders])
-	})
+	// User.findById(req.user.id)
+	// .then((user) => {
+	// 	return user.checkout()
+	// })
+	// .spread( (user, cart, products) => {
+	// 	if (cart.length + products.length > 5) { throw new Error("not found!")} //do something
+	// 	if (!cart.length) { throw new Error("invalid: too little products")}//do something else
+	// 	let total = 0
+	// 	products.forEach((product) => {
+	// 		total += product.price;
+	// 	})
+	// 	let pending = []
+	// 	cart.forEach((item) => {
+	// 		item.bought = true;
+	// 		item.dateBought = new Date();
+	// 		// item.save()
+	// 		// .catch(next)
+	// 	});
+	// 	cart.forEach((item) => {
+	// 		pending.push(user.setOwned(item));
+	// 		pending.push(user.removeCart(item))
+	// 	});
+	// 	console.log(pending)
+	// 	pending.unshift(user)
+	// 	pending.unshift(total)
+	// 	return Promise.all(pending)
+	// })
+	// .spread((total, user) => {
+	// 	return Promise.all([user.getOwned(), Order.create({total: total})])
+	// })
+	// .spread((products, order) => {
+	// 	let orders = products.map((product) => order.setPurchase(product));
+	// 	orders.unshift(order)
+	// 	return Promise.all([order, orders])
+	// })
+
+  User.findById(req.user.id)
+  .then(user => {
+    return Promise.all([user.getCart(), user])
+  })
+  .spread((cart, user) => {
+    user.clearCart();
+    return Promise.all([Order.checkout(cart), user])
+  })
+  .spread((order, user) => {
+    order.setUser(user);
+    return order
+  })
 	.then((order) => {
+    console.log('end of checkout')
 		res.send(order)
 	})
 	.catch(next)

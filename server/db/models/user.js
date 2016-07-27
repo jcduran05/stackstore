@@ -41,6 +41,12 @@ module.exports = db.define('user', {
         },
         correctPassword: function (candidatePassword) {
             return this.Model.encryptPassword(candidatePassword, this.salt) === this.password;
+        },
+        clearCart: function (){
+            return this.getCart()
+            .then((cart) => {
+                cart.forEach(item => this.removeCart(item))
+            })
         }
     },
     classMethods: {

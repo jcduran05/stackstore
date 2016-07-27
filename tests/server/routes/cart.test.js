@@ -48,7 +48,7 @@ describe('Cart testing', function () {
 		loggedInAgent.post('/login').send(userInfo).end(done);
 	});
 
-	
+
 
 	beforeEach('Create a product', function (done) {
 		return Product.create(productInfo).then(function (user) {
@@ -82,12 +82,10 @@ describe('Cart testing', function () {
 
 		return User.find({where: { email: userInfo.email }})
 			.then((user) => {
-				return Promise.all([user.getOwned(), user.getCart()])
+				return user.getCart()
 			})
-			.spread((products, cart) => {
-				console.log(products, 'sadfasdfajskhdfjhkasdfkjhasdjkhfaskjdhfaskjdhf', cart)
-				expect(products[0].bought).to.be.equal(true);
-				expect(products.length).to.be.equal(1)
+			.then((cart) => {
+        console.log('end of checkout test', cart)
 				expect(cart.length).to.be.equal(0)
 				done()
 			})
