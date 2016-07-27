@@ -13,6 +13,7 @@ Product.belongsTo(User);
 
 User.hasMany(Product, {as: 'cart'});
 
+
 Order.belongsTo(User);
 // Order.hasMany(Product, {as: 'purchased'});
 Detail.belongsTo(Order);

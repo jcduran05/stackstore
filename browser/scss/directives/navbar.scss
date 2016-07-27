@@ -1,3 +1,5 @@
+
+
 navbar {
 
   display: block;
@@ -22,6 +24,8 @@ navbar {
     font-size: 16px;
   }
 
+
+
   .nav > li > a {
     cursor: pointer;
     transition: color 0.2s;
@@ -37,10 +41,13 @@ navbar {
     }
   }
 
+
+
   .login-button {
     float: right;
     border: 1px solid black;
     margin-top: 10px;
+    margin-left: 10px;
     background: none;
     outline: none !important;
   }

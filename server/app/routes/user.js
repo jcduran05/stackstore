@@ -50,14 +50,10 @@ router.put('/:id', function (req, res, next){
 // POST Routes
 router.post('/', function (req, res, next){
   // check that user is current user or Admin
-  User.findOrCreate({
-    where: {
-      email: req.body.email
-    }
-  })
-  .spread(function (user, created){
-    if(!created) throw {status: 400, message:'User already exists'};
-    else res.status(200).send(user);
+  User.create(req.body)
+  .then(function (user){
+    user.newStatus('registered');
+    res.status(200).send(user);
   }).catch(next);
 })
 

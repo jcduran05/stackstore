@@ -47,6 +47,7 @@ module.exports = db.define('user', {
             newStatus = newStatus.toLowerCase();
             if (newStatus !== 'guest' || newStatus !== 'registered' || newStatus !== 'admin') return;
             this.status = newStatus;
+            return this.status
             // might change to return the status
         }
     },
