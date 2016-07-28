@@ -1,10 +1,29 @@
-<div class="col-md-12">
-  <h1>All users</h1>
-  <div ng-repeat="user in users">
-    <span>{{ user.email }}</span>
-    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(user.id)">
-      <span class="glyphicon glyphicon glyphicon-remove"></span>
-    </button>
-  </div>
-
+<div class="col-md-8">
+    <h1>All users</h1>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th> First Name </th>
+          <th> Last Name </th>
+          <th> Email </th>
+          <th> Account status </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in users">
+          <td> {{ user.firstName }} </td> <!-- link to single user state on first name, last name, and email -->
+          <td> {{ user.lastName }} </td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.status }}</td> <!-- select option to change admin status -->
+          <td>
+            <button type="button" class="btn btn-xs btn-danger" ng-click="delete(user.id)">
+              <span class="glyphicon glyphicon glyphicon-remove"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 </div>
+
+<!-- add a col-md-4 form to add a user -->
