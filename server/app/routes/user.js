@@ -57,6 +57,12 @@ router.put('/:id/confirm', function (req, res, next){
     res.send(false)
     return
   }
+
+  console.log(req.body);
+  if (!req.body.pswd) {
+    console.log('made it2');
+    throw {status: 404, message: 'Not found.'};
+  }
   User.findById(req.params.id)
   .then(function (user){
     res.send(user.correctPassword(req.body.pswd))
@@ -73,7 +79,7 @@ router.put('/:id', function (req, res, next){
   User.findById(req.params.id)
   .then(function (user){
     if (!user) throw {status: 400, message:'User already exists'};
-    else return user.update({password: req.body.password});
+    else return user.update(req.body);
   })
   .then(function(user){
     res.status(200).send(user);

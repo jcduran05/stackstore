@@ -39,16 +39,17 @@ app.controller('SingleUserController', function($scope, $log, UserFactory, $stat
   }
 
   $scope.save = function (id){
-    if ($scope.pswdCheck !== $scope.newPswd){
-
+    if ($scope.pswdCheck !== $scope.newPswd && $scope.newPswd){
       return
     }
-    $scope.user.password = $scope.newPswd
+
+    $scope.user.password = $scope.newPswd ? $scope.newPswd : $scope.oldPswd;
     UserFactory.update(id, $scope.user)
     .then(function(user){
       $scope.user = user
-      $scope.edit = false;
-      $scope.passwordConfirmed = false;
+      $scope.edit = null;
+      $scope.passwordConfirmed = null;
+      $scope.oldPswd = null;
     })
     .catch($log.error)
   }

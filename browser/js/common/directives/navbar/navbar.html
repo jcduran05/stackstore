@@ -11,7 +11,7 @@
         <button ng-show="!user" ui-sref="login" class="btn login-button btn-space">Login</button>
         <button ng-show="!user" ui-sref="register" class="btn login-button btn-space">Sign Up</button>
         <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
+            <span>Welcome, <a ui-sref="user({id: user.id})" class="user">{{ user.firstName }} {{ user.lastName }}! {{ user.email }}</a></span>
             <a ng-click="logout()">Logout</a>
         </div>
     </div>
