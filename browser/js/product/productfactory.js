@@ -7,7 +7,12 @@ app.factory('productFactory', function($http){
 			return response.data
 		})
 	}
-
+	product.deleteById = function(id){
+		return $http.delete('/api/products/:id', id)
+			.then(function(response){
+				return response.data
+			})
+	}
 
 	return product
 })

@@ -1,7 +1,7 @@
 app.config(function($stateProvider){
 	$stateProvider.state('products', {
 		url:'/products',
-		templateUrl: 'js/product/products.html',
+		templateUrl: 'js/product/templates/products.html',
 		controller: 'ProductsCtrl',
 		resolve: {
 			allProducts: function(productFactory){
@@ -12,6 +12,7 @@ app.config(function($stateProvider){
 });
 
 
+<<<<<<< HEAD
 
 app.controller('ProductsCtrl', function($scope, $state, allProducts) {
 
@@ -26,3 +27,17 @@ app.controller('ProductsCtrl', function($scope, $state, allProducts) {
 	
 
 })
+=======
+app.controller('ProductsCtrl', function($scope, $state, allProducts, productFactory) {
+
+	$scope.products = allProducts;
+	console.log('hello')
+
+	// $scope.deleter = productFactory.deleteById
+	// .then(function(){
+	// 	$state.go('products')
+	// });
+
+	
+});
+>>>>>>> 6c499659a8af547ac6cfe74be14e336511b217ed
