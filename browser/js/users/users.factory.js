@@ -22,8 +22,8 @@ app.factory('UserFactory', function($http) {
     })
   }
 
-  UserObj.update = function(id) {
-    return $http.put('/api/users/' + id)
+  UserObj.update = function(id, userData) {
+    return $http.put('/api/users/' + id, userData)
     .then(function(response) {
       return response.data;
     });
@@ -34,6 +34,13 @@ app.factory('UserFactory', function($http) {
     .then(function(response) {
       return response.data;
     });
+  }
+
+  UserObj.confirmPswd = function (pswd, id){
+    return $http.put('/api/users/' + id + '/confirm', pswd)
+    .then(function (response){
+      return response.data
+    })
   }
 
   return UserObj;

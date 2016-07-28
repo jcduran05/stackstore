@@ -1,6 +1,9 @@
 <div class="col-md-8">
-    <h1>All users</h1>
-    <table class="table table-condensed">
+    <alert type="danger" ng-show="error">
+      {{error}}
+    </alert>
+    <h1 ng-show="!error">All users</h1>
+    <table class="table table-condensed" ng-show="!error">
       <thead>
         <tr>
           <th> First Name </th>
@@ -12,9 +15,9 @@
       </thead>
       <tbody>
         <tr ng-repeat="user in users">
-          <td> {{ user.firstName }} </td> <!-- link to single user state on first name, last name, and email -->
-          <td> {{ user.lastName }} </td>
-          <td>{{ user.email }}</td>
+          <td><a ui-sref="user({id: user.id})"> {{ user.firstName }} </a> </td>
+          <td><a ui-sref="user({id: user.id})"> {{ user.lastName }} </a></td>
+          <td><a ui-sref="user({id: user.id})"> {{ user.email }} </a></td>
           <td>{{ user.status }}</td> <!-- select option to change admin status -->
           <td>
             <button type="button" class="btn btn-xs btn-danger" ng-click="delete(user.id)">

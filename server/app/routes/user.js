@@ -19,7 +19,7 @@ router.get('/', function (req, res, next){
 
 router.get('/:id', function (req, res, next){
   // check that user is current user or Admin
-  if (req.user.status !== 'admin' && req.user.id !== req.params.id){
+  if (req.user.status !== 'admin' && req.user.id != req.params.id){
     res.status(403).send('Forbidden');
     return
   }
@@ -32,7 +32,7 @@ router.get('/:id', function (req, res, next){
 // DELETE Routes
 router.delete('/:id', function (req, res, next){
   // check that user is current user or Admin
-  if (req.user.status !== 'admin' && req.user.id !== req.params.id){
+  if (req.user.status !== 'admin' && req.user.id != req.params.id){
     res.status(403).send('Forbidden');
     return
   }
@@ -46,22 +46,40 @@ router.delete('/:id', function (req, res, next){
   }).catch(next);
 })
 
+//confirm Password
+router.put('/:id/confirm', function (req, res, next){
+  // check that user is current user or Admin
+  if (req.user.status === 'admin'){
+    res.send(true)
+    return
+  }
+  if (req.user.id != req.params.id){
+    res.send(false)
+    return
+  }
+  User.findById(req.params.id)
+  .then(function (user){
+    res.send(user.correctPassword(req.body.pswd))
+  }).catch(next);
+})
+
 // PUT Routes
 router.put('/:id', function (req, res, next){
   // check that user is current user or Admin
-  if (req.user.status !== 'admin' && req.user.id !== req.params.id){
+  if (req.user.status !== 'admin' && req.user.id != req.params.id){
     res.status(403).send('Forbidden');
     return
   }
   User.findById(req.params.id)
   .then(function (user){
     if (!user) throw {status: 400, message:'User already exists'};
-    else return user.update(req.body);
+    else return user.update({password: req.body.password});
   })
   .then(function(user){
     res.status(200).send(user);
   }).catch(next);
 })
+
 
 // POST Routes
 router.post('/', function (req, res, next){

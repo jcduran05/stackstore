@@ -8,11 +8,15 @@ app.config(function($stateProvider) {
 });
 
 app.controller('UsersController', function($scope, $log, UserFactory) {
+  $scope.error = null
    UserFactory.fetchAll()
   .then(function(users) {
     $scope.users = users;
   })
-  .catch($log.error);
+  .catch(function (err){
+    $scope.error = 'Unauthorized'
+    console.error(err)
+  });
 
   $scope.delete = function(id) {
     UserFactory.delete(id)
