@@ -1,0 +1,29 @@
+<div>
+	<h2>Politicians</h2>
+	<table>
+	<thead>
+		<tr>
+		<th>name</th>
+		<th>price</th>
+		<th>party</th>
+		<th>state</th>
+		</tr>
+	</thead>
+
+	<tbody>
+
+	<tr ng-repeat="product in products">
+
+		<td>{{product.firstName + " " + product.lastName}}</td>
+		<td>{{"$" + product.price+ " "}}</td>
+		<td>{{product.party}}</td>
+		<td>{{product.state}}</td>
+		<td><button>add to cart</button></td>
+		<td><button>edit</button></td>
+		<td><button class='btn-danger' ng-click='deleter()'>delete</button></td>
+	</tr>
+	</tbody>
+	</table>
+		<a ui-sref="products({productId: product.id})">{{product.firstName}}</a>
+	
+</div>
