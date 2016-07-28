@@ -58,9 +58,7 @@ router.put('/:id/confirm', function (req, res, next){
     return
   }
 
-  console.log(req.body);
   if (!req.body.pswd) {
-    console.log('made it2');
     throw {status: 404, message: 'Not found.'};
   }
   User.findById(req.params.id)

@@ -25,6 +25,7 @@ app.factory('UserFactory', function($http) {
   UserObj.update = function(id, userData) {
     return $http.put('/api/users/' + id, userData)
     .then(function(response) {
+      console.log(response);
       return response.data;
     });
   }

@@ -18,7 +18,14 @@
           <td><a ui-sref="user({id: user.id})"> {{ user.firstName }} </a> </td>
           <td><a ui-sref="user({id: user.id})"> {{ user.lastName }} </a></td>
           <td><a ui-sref="user({id: user.id})"> {{ user.email }} </a></td>
-          <td>{{ user.status }}</td> <!-- select option to change admin status -->
+          <td>
+            <select ng-options="status as status for status in statuses" ng-model="user.status" class="form-control input-sm"></select>
+          </td> <!-- select option to change admin status -->
+          <td>
+            <button type="button" class="btn btn-xs btn-success" ng-click="update(user.id, user)">
+              <span class="">Update status</span>
+            </button>
+          </td>
           <td>
             <button type="button" class="btn btn-xs btn-danger" ng-click="delete(user.id)">
               <span class="glyphicon glyphicon glyphicon-remove"></span>
