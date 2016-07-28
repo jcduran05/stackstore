@@ -1,4 +1,4 @@
-app.factory('UserFactory', function($http, $rootScope) {
+app.factory('UserFactory', function($http) {
   var UserObj = {};
 
   UserObj.fetchAll = function() {
