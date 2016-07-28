@@ -1,0 +1,48 @@
+<div class="col-md-12">
+  <alert type="danger" ng-show="error">
+        {{error}}
+  </alert>
+</div>
+<div class="col-md-10" ng-show="!error">
+  <div ng-show="!edit">
+  <h1> <span> {{user.firstName}} </span> <span>{{user.lastName}}</span> </h1>
+  <h3> {{user.email}} </h3>
+  <!-- <all-politicians></all-politicians> -->
+  <button ng-click="changeForm()">Edit info</button>
+  </div>
+
+  <form id="user-form" name="userForm" ng-submit="confirmPswd(oldPswd)" ng-show="!passwordConfirmed && edit">
+    <div class="form-group">
+      <label for="password"> Confirm old Password </label>
+      <input type="password" ng-model="oldPswd" class="form-control">
+    </div>
+    <button type="submit" class="btn"> Submit </button>
+  </form>
+
+
+  <form id="user-form" name="userForm" ng-submit="save(user.id)" ng-show="passwordConfirmed">
+    <div class="form-group">
+        <label for="email">First name</label>
+        <input type="text" ng-model="user.firstName" class="form-control" value="{{user.firstName}}">
+    </div>
+    <div class="form-group">
+        <label for="email">Last name</label>
+        <input type="text" ng-model="user.lastName" class="form-control" value="{{user.lastName}}">
+    </div>
+    <div class="form-group">
+      <label for="email"> Email Address </label>
+      <input type="text" ng-model="user.email" class="form-control" value="{{user.email}}">
+    </div>
+    <div class="form-group">
+      <label for="password"> New Password </label>
+      <input type="password" ng-model="newPswd" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="password"> Re-enter Password </label>
+      <input type="password" ng-model="pswdCheck" class="form-control">
+    </div>
+    <button type="submit" class="btn"> Submit </button>
+  </form>
+
+
+</div>

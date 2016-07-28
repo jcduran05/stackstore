@@ -1,0 +1,39 @@
+<div class="col-md-8">
+    <alert type="danger" ng-show="error">
+      {{error}}
+    </alert>
+    <h1 ng-show="!error">All users</h1>
+    <table class="table table-condensed" ng-show="!error">
+      <thead>
+        <tr>
+          <th> First Name </th>
+          <th> Last Name </th>
+          <th> Email </th>
+          <th> Account status </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in users">
+          <td><a ui-sref="user({id: user.id})"> {{ user.firstName }} </a> </td>
+          <td><a ui-sref="user({id: user.id})"> {{ user.lastName }} </a></td>
+          <td><a ui-sref="user({id: user.id})"> {{ user.email }} </a></td>
+          <td>
+            <select ng-options="status as status for status in statuses" ng-model="user.status" class="form-control input-sm"></select>
+          </td> <!-- select option to change admin status -->
+          <td>
+            <button type="button" class="btn btn-xs btn-success" ng-click="update(user.id, user)">
+              <span class="">Update status</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-xs btn-danger" ng-click="delete(user.id)">
+              <span class="glyphicon glyphicon glyphicon-remove"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<!-- add a col-md-4 form to add a user -->

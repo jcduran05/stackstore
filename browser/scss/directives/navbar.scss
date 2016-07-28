@@ -41,6 +41,22 @@ navbar {
     }
   }
 
+  .user {
+    cursor: pointer;
+    transition: color 0.2s;
+    color: #0000FF !important;
+    &.active {
+      color: darken(#0000FF, 10%);
+    }
+    &:hover {
+      background: none;
+      color: #0000FF;
+    }
+    &:focus {
+      background: none;
+    }
+  }
+
 
 
   .login-button {

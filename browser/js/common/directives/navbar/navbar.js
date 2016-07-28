@@ -10,14 +10,16 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 { label: 'Home', state: 'home' },
                 { label: 'About', state: 'about' },
                 { label: 'Documentation', state: 'docs' },
+                { label: 'Members Only', state: 'membersOnly', auth: true },
+                { label: 'All Users', state: 'users', auth: true, admin: true},
                 { label: 'Politicians', state:'products'},
-                { label: 'Members Only', state: 'membersOnly', auth: true }
             ];
 
             scope.user = null;
 
-            scope.isLoggedIn = function () {
-                return AuthService.isAuthenticated();
+            scope.isLoggedIn = function (item) {
+                var adminNecessary = item.admin ? true : false
+                return adminNecessary ? AuthService.isAuthenticated() && scope.user.status === 'admin' : AuthService.isAuthenticated();
             };
 
             scope.logout = function () {
