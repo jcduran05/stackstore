@@ -14,7 +14,7 @@ app.config(function($stateProvider){
 app.config(function($stateProvider){
 	$stateProvider.state('product', {
 		url:'/product/:id',
-		templateUrl: 'js/product/templates/product.html',
+		template: '<single-product product="product"></single-product>',
 		controller: 'ProductCtrl',
 		resolve: {
 			oneProduct: function(productFactory, $stateParams){
@@ -26,30 +26,17 @@ app.config(function($stateProvider){
 
 
 
-app.controller('ProductsCtrl', function($scope, $state, allProducts, productFactory) {
+app.controller('ProductsCtrl', function($scope, $state, allProducts) {
 
 	$scope.products = allProducts;
-	 
 
-
-		
-	
 });
 
 
-app.controller('ProductCtrl', function($scope, $state, oneProduct, productFactory, $stateParams) {
+app.controller('ProductCtrl', function($scope, oneProduct, CartFactory) {
 
 	$scope.product = oneProduct;
-	
-	
-	// productFactory.getById($stateParams.id)
-	// .then(function(product){
-	// 	$scope.product = product
-	// })
-	// $state.go('playlist', {playlistId: playlist.id});
 
-		
-	
 });
 
 
