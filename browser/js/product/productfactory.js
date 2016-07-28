@@ -8,10 +8,16 @@ app.factory('productFactory', function($http){
 		})
 	}
 	product.deleteById = function(id){
-		return $http.delete('/api/products/:id', id)
+		return $http.delete('/api/products/' + id)
 			.then(function(response){
 				return response.data
 			})
+	}
+	product.getById = function(id){
+		return $http.get('/api/products/' + id)
+		.then(function(response){
+			return response.data
+		})
 	}
 
 	return product

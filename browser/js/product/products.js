@@ -11,33 +11,48 @@ app.config(function($stateProvider){
 	});
 });
 
+app.config(function($stateProvider){
+	$stateProvider.state('product', {
+		url:'/product/:id',
+		templateUrl: 'js/product/templates/product.html',
+		controller: 'ProductCtrl',
+		resolve: {
+			oneProduct: function(productFactory, $stateParams){
+				return productFactory.getById($stateParams.id);
+			}
+		}
+	});
+});
 
-<<<<<<< HEAD
 
-app.controller('ProductsCtrl', function($scope, $state, allProducts) {
 
-	// return productFactory.getAll()
-	// .then(function(politicians){
-	// 	$scope.products = politicians;
-	// 	console.log($scope.products)
-
-	// }).catch(next)
-	$scope.products = allProducts;
-	console.log($scope.products)
-	
-
-})
-=======
 app.controller('ProductsCtrl', function($scope, $state, allProducts, productFactory) {
 
 	$scope.products = allProducts;
-	console.log('hello')
+	 
 
-	// $scope.deleter = productFactory.deleteById
-	// .then(function(){
-	// 	$state.go('products')
-	// });
 
+		
 	
 });
->>>>>>> 6c499659a8af547ac6cfe74be14e336511b217ed
+
+
+app.controller('ProductCtrl', function($scope, $state, oneProduct, productFactory, $stateParams) {
+
+	$scope.product = oneProduct;
+	
+	
+	// productFactory.getById($stateParams.id)
+	// .then(function(product){
+	// 	$scope.product = product
+	// })
+	// $state.go('playlist', {playlistId: playlist.id});
+
+		
+	
+});
+
+
+
+
+// $state.go('playlist', {playlistId: playlist.id});

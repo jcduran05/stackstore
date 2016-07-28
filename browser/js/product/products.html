@@ -14,7 +14,7 @@
 	<tbody>
 	<tr ng-repeat="product in products">
 
-		<td>{{product.firstName + " " + product.lastName}}</td>
+		<td><a ui-sref="products({id: product.id})">{{product.firstName + " " + product.lastName}}</a></td>
 		<td>{{"$" + product.price+ " "}}</td>
 		<td>{{product.party}}</td>
 		<td>{{product.state}}</td>
@@ -23,6 +23,6 @@
 	</tbody>
 	</table>
 	<!-- </tr> -->
-		<a ui-sref="products({productId: product.id})">{{product.firstName}}</a>
+		
 	
 </div>
