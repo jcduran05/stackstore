@@ -25,18 +25,22 @@ router.put('/:id', function (req, res, next){
   .then(function (product){
     product.update(req.body)    
   }).then(function (){
-  	res.sendStatus(200).send("updated")
+  	res.status(200).send("updated")
   })
   	.catch(next)
 })//updating politician and restrict to admin
 
 
 router.delete('/:id', function(req, res, next){ //deleting a politician restrict to admin 
+// if(req.user.status!='admin'){
+//   res.status(403).send("forbidden")
+//   return
+// }
 Product.findById(req.params.id)
   .then(function (product){
     product.destroy()    
   }).then(function (){
-  	res.sendStatus(200).send("deleted")
+  	res.status(200).send("deleted")
   })
   	.catch(next)
 })

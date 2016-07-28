@@ -1,0 +1,37 @@
+
+   <!--  </div> -->
+    <!-- <div class="list-group"> -->
+      <!-- <div class="list-group-item" ng-repeat="artist in artists | filter: { name: nameSearch }"> -->
+      <!-- <a ui-sref="artist({artistId: artist.id})">{{ artist.name }}</a> -->
+
+<div>
+	<h2>Politicians</h2>
+
+	<table>
+	<thead>
+		<tr>
+		<th>name</th>
+		<th>price</th>
+		<th>party</th>
+		<th>state</th>
+		</tr>
+	</thead>
+
+	<tbody>
+	<!-- <span class="input-group-addon">Filter</span>
+      <input type="text" class="form-control" placeholder="by name" ng-model="nameSearch"> -->
+	<tr ng-repeat="product in products | filter: { name: nameSearch }">
+
+		<td><a ui-sref="product({id: product.id})">{{product.firstName + " " +product.lastName}}</a></td>
+		<td>{{"$" + product.price+ " "}}</td>
+		<td>{{product.party}}</td>
+		<td>{{product.state}}</td>
+		<td><button>add to cart</button></td>
+		<td><button>edit</button></td>
+		<td><button class='btn-danger' ng-click='deleter(product.id)'>delete</button></td>
+	</tr>
+	</tbody>
+	</table>
+		
+	
+</div>
