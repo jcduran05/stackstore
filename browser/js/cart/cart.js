@@ -6,18 +6,25 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('CartController', function ($scope, CartFactory){
+app.controller('CartController', function($scope, CartFactory, $state) {
 
   $scope.cart = null;
   $scope.inCartState = true;
 
   CartFactory.getCart()
-  .then(function (cart) {
-    cart = cart.map(function (item){
-      item.inCartState = true;
-      return item
+    .then(function(cart) {
+      cart = cart.map(function(item) {
+        item.inCartState = true;
+        return item
+      })
+      $scope.cart = cart
     })
-    $scope.cart = cart
-  })
+
+  $scope.checkout = function() {
+    CartFactory.checkout()
+      .then(function(order) {
+        $state.go('products')
+      })
+  }
 
 })

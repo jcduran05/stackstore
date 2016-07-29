@@ -14,7 +14,39 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
 					$state.reload()
 				});
 			}
-      scope.addToCart = CartFactory.addToCart
+      scope.addToCart = function(id){
+        bootbox.dialog({
+          message: 'a tested message',
+          title: 'Add to cart?',
+          buttons: {
+            success: {
+              label: 'Add to cart',
+              className: 'btn-success',
+              callback: function (){
+                console.log('worked')
+                CartFactory.addToCart(id)
+              }
+            },
+            main: {
+              label: 'Express checkout',
+              className: 'btn-primary',
+              callback: function (){
+                CartFactory.addToCart(id)
+                .then(function (){
+                  $state.go('cart')
+                })
+              }
+            },
+            danger: {
+              label: 'cancel',
+              className:'btn-danger'
+            }
+          }
+        })
+        // CartFactory.addToCart(id)
+      }
+
+
       scope.removeFromCart = function (id){
         CartFactory.removeFromCart(id)
         .then(function (cart){

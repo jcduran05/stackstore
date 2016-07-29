@@ -1,7 +1,7 @@
 
 'use strict'
 app.config(function($stateProvider){
-	$stateProvider.state('Home', {
+	$stateProvider.state('ourhome', {
 		url:'/',
 		templateUrl: 'js/home/home.html',
 		controller: 'HomeCtrl'
@@ -39,11 +39,9 @@ app.controller('HomeCtrl', function($scope, $state, HomeFactorys){
     {
       image: 'http://a.abcnews.com/images/Politics/AP_Trump_MEM_150819_31x13_1600.jpg'
     }
-    
+
   ];
 
-
-  console.log("HIIIII")
 	// $scope.hilary = hilary
 	// $scope.donald = donald
 })

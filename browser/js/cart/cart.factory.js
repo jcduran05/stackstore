@@ -23,6 +23,13 @@ app.factory('CartFactory', function ($http){
     })
   }
 
+  CartFactory.checkout = function (){
+    return $http.post('api/cart/checkout')
+    .then(function (res){
+      return res.data;
+    })
+  }
+
   return CartFactory
 
 })
