@@ -1,20 +1,22 @@
-<div class="col-md-6">
+
+<div class = "col-md-8">
 	<h2>{{product.firstName + " " + product.lastName}}</h2>
 	<table class="table table-condensed">
-	<thead>
-		<tr>
+		<thead>
+			<tr>
+			<th></th>
+			<th>Price</th>
+			<th>Party</th>
+			<th>State</th>
+			<th>Website</th>
+			<th></th>
+			<th></th>
 
-
-		<th>Price</th>
-		<th>Party</th>
-		<th>State</th>
-		<th>website</th>
-		</tr>
-	</thead>
-
+			</tr>
+		</thead>
 	<tbody>
 
-
+		<td><img src ="/images/{{product.picurl}}" class="resize"></td>
 		<td>{{"$" + product.price+ " "}}</td>
 		<td>{{product.party}}</td>
 		<td>{{product.state}}</td>

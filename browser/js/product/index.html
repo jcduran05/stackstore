@@ -1,38 +1,39 @@
 
-   <!--  </div> -->
-    <!-- <div class="list-group"> -->
-      <!-- <div class="list-group-item" ng-repeat="artist in artists | filter: { name: nameSearch }"> -->
-      <!-- <a ui-sref="artist({artistId: artist.id})">{{ artist.name }}</a> -->
-
-<div class="col-md-6">
+<div>
 	<h2>Politicians</h2>
 
-	<table class="table table-condensed">
-	<thead>
-		<tr>
-		<th>name</th>
-		<th>price</th>
-		<th>party</th>
-		<th>state</th>
+	<div class="col-md-4">
+	<input type="text" class="form-control" placeholder="Enter politician's first name" ng-model="nameSearch">
+	</div>
+	<div class="col-md-4">
+	<input type="text" class="form-control" placeholder="Enter a price" ng-model="priceSearch">
+	</div>
+	<div class="col-md-6">
+		<table class="table table-condensed">
+		<thead>
+			<tr>
+			<th>Name</th>
+			<th>Price</th>
+			<th>Party</th>
+			<th>State</th>
+			</tr>
+		</thead>
+
+
+		<tbody>
+		<tr ng-repeat="product in products | filter: { firstName: nameSearch, price: priceSearch }">
+
+			<td><a ui-sref="product({id: product.id})">{{product.firstName + " " +product.lastName}}</a></td>
+			<td>{{"$" + product.price+ " "}}</td>
+			<td>{{product.party}}</td>
+			<td>{{product.state}}</td>
+			<td><button ng-click="addToCart(product.id)" ng-show="!product.inCartState" type="button" class="btn btn-primary btn-sm btn-spacer">add to cart</button>
+      <button class="btn btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState">remove from cart</button></td>
+			<td><button type="button" class="btn btn-primary btn-sm btn-spacer">edit</button></td>
+			<td><button type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></td>
 		</tr>
-	</thead>
-
-	<tbody>
-	<!-- <span class="input-group-addon">Filter</span>
-      <input type="text" class="form-control" placeholder="by name" ng-model="nameSearch"> -->
-	<tr ng-repeat="product in products | filter: { name: nameSearch }">
-
-		<td><a ui-sref="product({id: product.id})">{{product.firstName + " " +product.lastName}}</a></td>
-		<td>{{"$" + product.price+ " "}}</td>
-		<td>{{product.party}}</td>
-		<td>{{product.state}}</td>
-		<td><button ng-click="addToCart(product.id)" ng-show="!product.inCartState" class="btn btn-success">add to cart</button>
-    <button class="btn btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState">remove from cart</button></td>
-		<td><button>edit</button></td>
-		<td><button class='btn-danger' ng-click='deleter(product.id)'>delete</button></td>
-	</tr>
-	</tbody>
-	</table>
-
+		</tbody>
+		</table>
+	</div>
 
 </div>
