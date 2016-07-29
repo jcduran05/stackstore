@@ -1,6 +1,39 @@
 <h1>Confirm Your Purchase</h1>
 
-<test-products products="cart" incart="incart"></test-products>
+<div class="col-md-6">
+    <table class="table table-condensed">
+    <thead>
+      <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Party</th>
+      <th>State</th>
+      </tr>
+    </thead>
+
+
+    <tbody>
+    <tr ng-repeat="product in products | filter: { firstName: firstNameSearch, lastName: lastNameSearch} | filter:below">
+
+
+      <td><a ui-sref="product({id: product.id})">{{product.firstName + " " +product.lastName}}</a></td>
+      <td>{{"$" + product.price+ " "}}</td>
+      <td>{{product.party}}</td>
+      <td>{{product.state}}</td>
+      <td><button ng-click="addToCart(product.id)" ng-show="!product.inCartState" type="button" class="btn btn-primary btn-sm btn-spacer">add to cart</button>
+      <button class="btn btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState">remove from cart</button></td>
+
+      <td><button ng-show='isAdmin' type="button" class="btn btn-primary btn-sm btn-spacer">edit</button></td>
+      <td><button ng-show='isAdmin' type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></td>
+
+    </tr>
+    </tbody>
+    </table>
+  </div>
+
+</div>
+
+
 <div class='col-md-12'>
 	<h3>Your Total Price Is ${{tots}}</h3>
 </div>

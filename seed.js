@@ -42,6 +42,7 @@ for (var idx in politiciansObj.objects) {
     price: Math.floor(Math.random() * 1000000),
     picurl: 'default.png'
   };
+  if (politician.firstName == 'Bernard') break;
 
   seedSenators.push(politician);
 }
@@ -76,7 +77,7 @@ var trendingProducts = function(){
         party: 'Democrat',
         price: '5',
         state: 'NY',
-        picurl: 'http://www.newsbiscuit.com/wp-content/uploads/2015/10/hillary-clinton-womenjpeg-045d7.jpg',
+        picurl: 'hillary-clinton-women.jpg',
         rating: '1',
     },{
         firstName: 'Donald',
@@ -84,9 +85,26 @@ var trendingProducts = function(){
         party: 'Republican',
         price: '20',
         state: 'NY',
-        picurl: 'http://media.vanityfair.com/photos/55ddc2f8e8f804624a2ff49c/master/h_590,c_limit/donald-trump-history-hair-ss09.jpg',
+        picurl: 'Donald-trump-history-hair.jpg',
         rating: '1',
 
+    },{
+        firstName: 'Barack',
+        lastName: 'Obama',
+        party: 'Democrat',
+        price: '10000000',
+        state: 'IL',
+        picurl: 'barack-obama.jpg',
+        rating: '1',
+
+    },{
+        firstName: 'Bernie',
+        lastName: 'Sanders',
+        party: 'Independent',
+        price: '100110100110100101100110100011',
+        state: 'VT',
+        picurl: 'bernie-sanders.jpg',
+        rating: '1',
     }];
     var creatingProducts = products.map(function (productObj){
         return Product.create(productObj)

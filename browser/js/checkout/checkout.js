@@ -9,7 +9,7 @@ app.config(function($stateProvider) {
 
 app.controller('CheckoutController', function($scope, CartFactory, $state) {
 
-  $scope.cart = null;
+  $scope.products = null;
   $scope.incart = true;
   $scope.tots = 0;
   console.log('are you updating')
@@ -20,7 +20,7 @@ app.controller('CheckoutController', function($scope, CartFactory, $state) {
         item.inCartState = true;
         return item
       })
-      $scope.cart = cart
+      $scope.products = cart
     })
 
   $scope.checkout = function() {
