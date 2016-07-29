@@ -1,4 +1,4 @@
-app.directive('testProducts', function(productFactory, $state, CartFactory){
+app.directive('testProducts', function(productFactory, $state, CartFactory, $rootScope){
 	return {
 		restrict:'E',
 		scope: {
@@ -7,6 +7,16 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
 		},
 		templateUrl: 'js/product/index.html',
 		link: function(scope){
+      if($rootScope.user) scope.isAdmin = ($rootScope.user.status === "admin" ? true: false)
+      else scope.isAdmin = false
+
+      scope.priceSearch = '';
+      scope.below = function (product){
+        if (product.price < scope.priceSearch || scope.priceSearch == '') {
+          return true;
+        }
+        return false;
+      }
 
 			scope.deleter = function (id) {
 				productFactory.deleteById(id)
