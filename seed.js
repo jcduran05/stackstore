@@ -39,7 +39,8 @@ for (var idx in politiciansObj.objects) {
     role: politicianObj.role_type,
     state: politicianObj.state,
     website: politicianObj.website,
-    price: Math.floor(Math.random() * 1000000)
+    price: Math.floor(Math.random() * 1000000),
+    picurl: 'default.png'
   };
 
   seedSenators.push(politician);

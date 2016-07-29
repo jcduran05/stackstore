@@ -1,10 +1,15 @@
 
 'use strict'
 app.config(function($stateProvider){
-	$stateProvider.state('Home', {
+	$stateProvider.state('ourhome', {
 		url:'/',
 		templateUrl: 'js/home/home.html',
 		controller: 'HomeCtrl'
+		// resolve: {
+		// 	allProducts: function(productFactory){
+		// 		return productFactory.getAll();
+		// 	} 
+		// }
 		// resolve: {
 		// 	hilary: function(HomeFactory){
 		// 		return HomeFactory.hilary()
@@ -17,17 +22,12 @@ app.config(function($stateProvider){
 	});
 })
 
-
-// app.controller('HomeCtrl', function($scope, $state, HomeFactorys){
-// 	$scope.HomeFactorys = HomeFactorys;
-
-//   console.log("HIIIII")
-// 	// $scope.hilary = hilary
-// 	// $scope.donald = donald
-// })
-
-
-app.controller('HomeCtrl', function($scope, $state, HomeFactorys){
+app.controller('HomeCtrl', function($scope, $state, HomeFactorys,productFactory){
+	productFactory.getAll()
+		.then(function(products){
+			$scope.products = products
+		});
+	
 	$scope.myInterval = 5000;
   $scope.slides = [
     {
@@ -39,12 +39,7 @@ app.controller('HomeCtrl', function($scope, $state, HomeFactorys){
     {
       image: 'http://a.abcnews.com/images/Politics/AP_Trump_MEM_150819_31x13_1600.jpg'
     }
-    
+
   ];
-
-
-  console.log("HIIIII")
-	// $scope.hilary = hilary
-	// $scope.donald = donald
 })
 

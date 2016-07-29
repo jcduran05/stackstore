@@ -1,40 +1,37 @@
-
-
-navbar {
-
+.navbar {
   display: block;
-  background: white;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black;
-
+  background: rgba(0, 60, 128, 0.82);
+  margin-bottom: 0px;
   .container {
     width: 91%;
     max-width: 1340px;
-    padding-top: 20px;
   }
 
-  fullstack-logo {
+  img {
     margin-top: 5px;
+    margin-bottom: 5px;
     margin-right: 20px;
-    width: 40px;
+    width: 65px;
   }
 
   a {
-    color: black;
+    color: #ffffff;
     font-size: 16px;
+    font-family: "Whitney SSm A", "Whitney SSm B", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Nimbus Sans L", sans-serif;
   }
-
-
 
   .nav > li > a {
     cursor: pointer;
     transition: color 0.2s;
+    border: 1px rgba(0,60,128,0) solid;
+    border-left: 1px rgba(213,222,233,0.44) solid;
     &.active {
-      color: darken(#f31214, 10%);
+       color: #f1f1f1;
     }
     &:hover {
-      background: none;
-      color: #f31214;
+      background-color: #ffffff;
+      color: #838383;
+      border-top: 4px solid #880000;
     }
     &:focus {
       background: none;
@@ -44,13 +41,13 @@ navbar {
   .user {
     cursor: pointer;
     transition: color 0.2s;
-    color: #0000FF !important;
+    color: #ffffff !important;
     &.active {
-      color: darken(#0000FF, 10%);
+      color: #ffffff;
     }
     &:hover {
       background: none;
-      color: #0000FF;
+      color: #ffffff;
     }
     &:focus {
       background: none;
