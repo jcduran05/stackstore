@@ -9,13 +9,15 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, $roo
 		link: function(scope){
       if($rootScope.user) scope.isAdmin = ($rootScope.user.status === "admin" ? true: false)
       else scope.isAdmin = false
-      
-      scope.below = function (priceSearch){
-        for(var i = priceSearch; i>0; i--){
-          scope.below = i;
+
+      scope.priceSearch = '';
+      scope.below = function (product){
+        if (product.price < scope.priceSearch || scope.priceSearch == '') {
+          return true;
+        }
+        return false;
       }
-    }
-     
+
 			scope.deleter = function (id) {
 				productFactory.deleteById(id)
 				.then(function(res){

@@ -11,7 +11,7 @@
 	<div class="col-md-4">
 	<input type="text" class="form-control" placeholder="Enter a price" ng-model="priceSearch">
 	</div>
-	
+
 	<div class="col-md-6">
 		<table class="table table-condensed">
 		<thead>
@@ -25,7 +25,9 @@
 
 
 		<tbody>
-		<tr ng-repeat="product in products | filter: { firstName: firstNameSearch, lastName: lastNameSearch, price: below(priceSearch) }">
+		<tr ng-repeat="product in products | filter: { firstName: firstNameSearch, lastName: lastNameSearch} | filter:below">
+
+		<!-- filter: { firstName: firstNameSearch, lastName: lastNameSearch, price: below } -->
 
 			<td><a ui-sref="product({id: product.id})">{{product.firstName + " " +product.lastName}}</a></td>
 			<td>{{"$" + product.price+ " "}}</td>
