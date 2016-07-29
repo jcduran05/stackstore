@@ -1,12 +1,16 @@
-app.directive('testProducts', function(productFactory, $state, CartFactory, $rootScope){
+
+app.directive('testProducts', function(productFactory, $state, CartFactory, IsAdminFactory, $rootScope){
 	return {
 		restrict:'E',
 		scope: {
 			products: '=',
-      inCartState: '='
+      incart: '='
 		},
 		templateUrl: 'js/product/index.html',
-		link: function(scope){
+
+		link: function (scope){
+      scope.isAdmin = null;
+
       if($rootScope.user) scope.isAdmin = ($rootScope.user.status === "admin" ? true: false)
       else scope.isAdmin = false
 
@@ -18,12 +22,18 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, $roo
         return false;
       }
 
-			scope.deleter = function (id) {
-				productFactory.deleteById(id)
-				.then(function(res){
-					$state.reload()
-				});
-			}
+
+      IsAdminFactory.isAdmin()
+      .then(function(status){
+        scope.isAdmin = status;
+      })
+
+      scope.deleter = function (id) {
+        productFactory.deleteById(id)
+        .then(function(res){
+          $state.reload()
+        });
+      }
       scope.addToCart = function(id){
         var name, price;
         scope.products.forEach(function (product){
@@ -53,7 +63,7 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, $roo
               callback: function (){
                 CartFactory.addToCart(id)
                 .then(function (){
-                  $state.go('cart') //eventually make checkout
+                  $state.go('checkout') //eventually make checkout
                 })
               }
             },
@@ -74,19 +84,73 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, $roo
         })
       }
 
-		}
+    }
 	}
 })
 
-app.directive('singleProduct', function(productFactory, $state, CartFactory){
+app.directive('singleProduct', function(productFactory, $state, CartFactory, IsAdminFactory){
 	return {
 		restrict:'E',
 		scope: {
 			product: '='
 		},
 		templateUrl: 'js/product/templates/product.html',
-    link: function (scope, elem, attrs){
-      scope.addToCart = CartFactory.addToCart
+    link: function (scope){
+      scope.isAdmin = null;
+
+      IsAdminFactory.isAdmin()
+      .then(function(status){
+        scope.isAdmin = status;
+      })
+
+      scope.deleter = function (id) {
+        productFactory.deleteById(id)
+        .then(function(res){
+          $state.reload()
+        });
+      }
+      scope.addToCart = function(id){
+        bootbox.dialog({
+          message: '$' + scope.product.price,
+          title: 'Add ' + scope.product.firstName + ' ' + scope.product.lastName + ' to cart?',
+          buttons: {
+            success: {
+              label: 'Add to cart',
+              className: 'btn-success',
+              callback: function (){
+                console.log('worked')
+                CartFactory.addToCart(id)
+                .then(function (){
+                  $state.reload()
+                })
+              }
+            },
+            main: {
+              label: 'Express checkout',
+              className: 'btn-primary',
+              callback: function (){
+                CartFactory.addToCart(id)
+                .then(function (){
+                  $state.go('checkout') //eventually make checkout
+                })
+              }
+            },
+            danger: {
+              label: 'Cancel',
+              className:'btn-danger'
+            }
+          }
+        })
+      }
+
+
+      scope.removeFromCart = function (id){
+        CartFactory.removeFromCart(id)
+        .then(function (cart){
+          $state.reload()
+        })
+      }
+
     }
 	}
 })

@@ -24,11 +24,21 @@ router.get('/', function (req, res, next){
 router.get('/:id', function (req, res, next){
   Product.findById(req.params.id)
   .then(function (product){
+    if (!req.session.cart) req.session.cart = [];
+    req.session.cart.forEach(item => {
+      if (item.id === product.id){
+        product.dataValues.inCartState = true;
+      }
+  })
     res.send(product)
   }).catch(next)
 })
 
 router.put('/:id', function (req, res, next){
+  if(req.user.status!='admin'){
+    res.status(403).send("forbidden")
+    return
+  }
 	Product.findById(req.params.id)
   .then(function (product){
     product.update(req.body)
@@ -40,15 +50,15 @@ router.put('/:id', function (req, res, next){
 
 
 router.delete('/:id', function(req, res, next){ //deleting a politician restrict to admin
-// if(req.user.status!='admin'){
-//   res.status(403).send("forbidden")
-//   return
-// }
-Product.findById(req.params.id)
-  .then(function (product){
-    product.destroy()
-  }).then(function (){
-  	res.status(200).send("deleted")
-  })
-  	.catch(next)
+  if(req.user.status!='admin'){
+    res.status(403).send("forbidden")
+    return
+  }
+  Product.findById(req.params.id)
+    .then(function (product){
+      product.destroy()
+    }).then(function (){
+    	res.status(200).send("deleted")
+    })
+    	.catch(next)
 })
