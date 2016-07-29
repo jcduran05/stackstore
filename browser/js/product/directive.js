@@ -1,4 +1,5 @@
-app.directive('testProducts', function(productFactory, $state, CartFactory, IsAdminFactory){
+
+app.directive('testProducts', function(productFactory, $state, CartFactory, IsAdminFactory, $rootScope){
 	return {
 		restrict:'E',
 		scope: {
@@ -6,8 +7,21 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
       incart: '='
 		},
 		templateUrl: 'js/product/index.html',
+
 		link: function (scope){
       scope.isAdmin = null;
+
+      if($rootScope.user) scope.isAdmin = ($rootScope.user.status === "admin" ? true: false)
+      else scope.isAdmin = false
+
+      scope.priceSearch = '';
+      scope.below = function (product){
+        if (product.price < scope.priceSearch || scope.priceSearch == '') {
+          return true;
+        }
+        return false;
+      }
+
 
       IsAdminFactory.isAdmin()
       .then(function(status){
