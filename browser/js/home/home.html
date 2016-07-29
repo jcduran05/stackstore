@@ -16,3 +16,18 @@
 	</div>
 
 </div>
+
+<div clas="row">
+	<div class ="col-md-3" ng-repeat = "product in products">
+		<div class = "thumbnail">
+			<img src = "/images/{{product.picurl}}">
+				<div class ="caption">
+					<h3>{{product.firstName + " " + product.lastName}}</h3>
+					<p>{{product.party}}</p>
+					<p>{{product.state}}</p>
+					<div><button type="button" class="btn btn-primary btn-sm btn-spacer">add to cart</button></div>div>
+
+				</div>
+		</div>
+	</div>
+</row>

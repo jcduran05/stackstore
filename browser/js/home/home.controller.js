@@ -6,6 +6,11 @@ app.config(function($stateProvider){
 		templateUrl: 'js/home/home.html',
 		controller: 'HomeCtrl'
 		// resolve: {
+		// 	allProducts: function(productFactory){
+		// 		return productFactory.getAll();
+		// 	} 
+		// }
+		// resolve: {
 		// 	hilary: function(HomeFactory){
 		// 		return HomeFactory.hilary()
 		// 	}
@@ -17,7 +22,12 @@ app.config(function($stateProvider){
 	});
 })
 
-app.controller('HomeCtrl', function($scope, $state, HomeFactorys){
+app.controller('HomeCtrl', function($scope, $state, HomeFactorys,productFactory){
+	productFactory.getAll()
+		.then(function(products){
+			$scope.products = products
+		});
+	
 	$scope.myInterval = 5000;
   $scope.slides = [
     {
