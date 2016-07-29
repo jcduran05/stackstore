@@ -5,20 +5,7 @@ app.config(function($stateProvider){
 		url:'/',
 		templateUrl: 'js/home/home.html',
 		controller: 'HomeCtrl'
-		// resolve: {
-		// 	allProducts: function(productFactory){
-		// 		return productFactory.getAll();
-		// 	} 
-		// }
-		// resolve: {
-		// 	hilary: function(HomeFactory){
-		// 		return HomeFactory.hilary()
-		// 	}
-		// 	,
-		// 	donald: function(HomeFactory){
-		// 		return HomeFactory.donald()
-		// 	}
-		// }
+
 	});
 })
 
@@ -27,7 +14,7 @@ app.controller('HomeCtrl', function($scope, $state, HomeFactorys,productFactory)
 		.then(function(products){
 			$scope.products = products
 		});
-	
+
 	$scope.myInterval = 5000;
   $scope.slides = [
     {
@@ -41,5 +28,6 @@ app.controller('HomeCtrl', function($scope, $state, HomeFactorys,productFactory)
     }
 
   ];
+
 })
 

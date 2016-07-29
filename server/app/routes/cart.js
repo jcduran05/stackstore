@@ -22,11 +22,8 @@ router.post('/add/:id', function(req, res, next){
 })
 
 router.delete('/delete/:id', function(req, res, next){
-  Product.findById(req.params.id)
-  .then(product => {
-    // if (!req.session.cart) req.session.cart = [];
-    req.session.cart.splice(req.session.cart.indexOf(product), 1)
-  })
+    req.session.cart = req.session.cart.filter(item => item.id != req.params.id)
+    res.send(req.session.cart)
 })
 
 router.post('/checkout', function (req, res, next){

@@ -1,3 +1,4 @@
+
 <div class = "col-md-8">
 	<h2>{{product.firstName + " " + product.lastName}}</h2>
 	<table class="table table-condensed">
@@ -20,13 +21,10 @@
 		<td>{{product.party}}</td>
 		<td>{{product.state}}</td>
 		<td>{{product.website}}</td>
-		<td><button>add to cart</button></td>
+		<td><button ng-click="addToCart(product.id)">add to cart</button></td>
 		<td><button>edit</button>
 
 	</tr>
 	</tbody>
 	</table>
-	<!-- </tr> -->
-		
-	
 </div>
