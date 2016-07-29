@@ -29,7 +29,7 @@ app.config(function($stateProvider){
 app.controller('ProductsCtrl', function($scope, $state, allProducts, productFactory) {
 
 	$scope.products = allProducts;
-	 
+	$scope.moducts = [1,2,3]
 
 
 		
