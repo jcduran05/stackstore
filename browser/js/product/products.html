@@ -3,7 +3,7 @@
 	<table>
 	<thead>
 		<tr>
-		
+
 		<th>name</th>
 		<th>price</th>
 		<th>party</th>
@@ -12,7 +12,7 @@
 	</thead>
 
 	<tbody>
-	<tr ng-repeat="product in products">
+	<tr ng-repeat="product in products | filter: { name: nameSearch }">
 
 		<td><a ui-sref="products({id: product.id})">{{product.firstName + " " + product.lastName}}</a></td>
 		<td>{{"$" + product.price+ " "}}</td>
@@ -23,6 +23,9 @@
 	</tbody>
 	</table>
 	<!-- </tr> -->
-		
-	
+
+
 </div>
+
+
+

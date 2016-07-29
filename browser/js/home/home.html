@@ -1,76 +1,18 @@
-<!-- 
-  
-  <div id="slides_control">
-	<uib-carousel interval="myInterval">
-        <slide ng-repeat="HomeFactory in HomeFactorys">
-          <img ng-src ="{{HomeFactory}}"/>
-         
-            <h4>Slide {{$index+1}}</h4>
-          
-        </slide>
-      </uib-carousel>
-    </div> 
- -->
+<div class= "row">
 
-<div class= "container">
-	<div class= "row">
-		<div class = "col-lg-12 col-xs-6 homeCarousel">
-			  <div ng-controller="HomeCtrl" id="slides_control">
-			    <div class="noPadding">
-			      <uib-carousel interval="myInterval">
-			        <uib-slide ng-repeat="slide in slides" active="slide.active"> 
-			          <img ng-src="{{slide.image}}">
-			          <div class="carousel-caption">
-			            <h4>2016 Elections</h4>
-			          </div>
-			        </uib-slide>
-			      </uib-carousel>
-			    </div>
-			</div>  
+	<div class = "col-lg-12 col-xs-12 homeCarousel">
+		  <div ng-controller="HomeCtrl" id="slides_control">
+		    <div class="noPadding">
+		      <uib-carousel interval="myInterval">
+		        <uib-slide ng-repeat="slide in slides" active="slide.active">
+		          <img ng-src="{{slide.image}}">
+		          <div class="carousel-caption">
+		            <h4>2016 Elections</h4>
+		          </div>
+		        </uib-slide>
+		      </uib-carousel>
+		    </div>
 		</div>
-		
 	</div>
+
 </div>
-
-
-
-
-<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script> -->
-
-<!-- <button id="button"><a ui-sref="products">View All</a> </button>
- -->
-
-
-
-
-
-
-<!-- </div>  --> 
-<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
- -->
-
-<!-- <h1>Politicians 'R' Us</h1>
-<p>Welcome to our store, feel free to browse...</p>
-
-
-<h3>Who's Trending Now?</h3>
-<h5>{{donald.picurl}}</h5>
-
-<h5>{{hilary}}</h5>
-
-<div>
-<table>
-
-	
-<img class='col-sm-3' src="{{hilary.picurl}}" height='300' width='300'/>
-<img class='col-sm-3' src="{{donald.picurl}}" height='300' width='300'/>
-<img class='col-sm-3' src="http://az616578.vo.msecnd.net/files/2016/04/18/6359658599645253781158575485_obama.jpg" height='300' width='300'/>
-<img class='col-sm-3' src="http://www.newyorker.com/wp-content/uploads/2015/11/Cassidy-Bernie-Sanders-Loud-and-Clear-1200.jpg" height='300' width='300' />
-
-</table>	
-
-
-
-<button><a ui-sref="products">View All</a> </button>
