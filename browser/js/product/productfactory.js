@@ -20,5 +20,6 @@ app.factory('productFactory', function($http){
 		})
 	}
 
+
 	return product
 })

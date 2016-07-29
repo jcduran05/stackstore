@@ -1,0 +1,26 @@
+
+
+#slides_control > div{
+  height: 60%;
+  /*padding-top: 100px;*/
+}
+img{
+  margin:auto;
+  width: 800px;
+}
+#slides_control {
+height:60%;
+  position:absolute;
+  width: 100%;
+
+  top:-8px;
+ 
+}
+
+#button{
+	color:red;
+}
+
+.noPadding {
+	padding: 0px
+}

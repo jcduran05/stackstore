@@ -71,10 +71,39 @@ var seedUsers = function () {
 
 };
 
+var trendingProducts = function(){
+    var products = [
+    {
+        firstName: 'Hilary',
+        lastName: 'Clinton',
+        party: 'Democrat',
+        price: '5',
+        state: 'NY',
+        picurl: 'http://www.newsbiscuit.com/wp-content/uploads/2015/10/hillary-clinton-womenjpeg-045d7.jpg',
+        rating: '1',
+    },{
+        firstName: 'Donald',
+        lastName: 'Trump',
+        party: 'Republican',
+        price: '20',
+        state: 'NY',
+        picurl: 'http://media.vanityfair.com/photos/55ddc2f8e8f804624a2ff49c/master/h_590,c_limit/donald-trump-history-hair-ss09.jpg',
+        rating: '1',
+
+    }];
+    var creatingProducts = products.map(function (productObj){
+        return Product.create(productObj)
+    })
+    return Promise.all(creatingProducts)
+}
+
 
 db.sync({ force: true })
     .then(function () {
         return Product.bulkCreate(seedSenators);
+    })
+    .then(function(){
+        trendingProducts()
     })
     .then(function() {
         return seedUsers();
