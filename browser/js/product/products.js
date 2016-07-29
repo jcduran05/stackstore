@@ -5,7 +5,7 @@ app.config(function($stateProvider){
 		controller: 'ProductsCtrl',
 		resolve: {
 			allProducts: function(productFactory){
-				return productFactory.getAll();
+				return productFactory.getAll()
 			}
 		}
 	});

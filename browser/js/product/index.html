@@ -26,8 +26,8 @@
 		<td>{{"$" + product.price+ " "}}</td>
 		<td>{{product.party}}</td>
 		<td>{{product.state}}</td>
-		<td><button ng-click="addToCart(product.id)" ng-show="!product.inCartState">add to cart</button></td>
-    <td><button ng-click="removeFromCart(product.id)" ng-show="product.inCartState">remove from cart</button></td>
+		<td><button ng-click="addToCart(product.id)" ng-show="!product.inCartState" class="btn btn-success">add to cart</button>
+    <button class="btn btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState">remove from cart</button></td>
 		<td><button>edit</button></td>
 		<td><button class='btn-danger' ng-click='deleter(product.id)'>delete</button></td>
 	</tr>

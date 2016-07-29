@@ -15,9 +15,16 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
 				});
 			}
       scope.addToCart = function(id){
+        var name, price;
+        scope.products.forEach(function (product){
+          if (product.id === id){
+            name = product.firstName + ' ' + product.lastName;
+            price = product.price;
+          }
+        })
         bootbox.dialog({
-          message: 'a tested message',
-          title: 'Add to cart?',
+          message: '$' + price,
+          title: 'Add ' + name + ' to cart?',
           buttons: {
             success: {
               label: 'Add to cart',
@@ -25,6 +32,9 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
               callback: function (){
                 console.log('worked')
                 CartFactory.addToCart(id)
+                .then(function (){
+                  $state.reload()
+                })
               }
             },
             main: {
@@ -33,12 +43,12 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
               callback: function (){
                 CartFactory.addToCart(id)
                 .then(function (){
-                  $state.go('cart')
+                  $state.go('cart') //eventually make checkout
                 })
               }
             },
             danger: {
-              label: 'cancel',
+              label: 'Cancel',
               className:'btn-danger'
             }
           }

@@ -9,6 +9,14 @@ var Product = db.model('product')
 router.get('/', function (req, res, next){
   Product.findAll()
   .then(function (products){
+      console.log(req.session.cart)
+    products.forEach(product => {
+      req.session.cart.forEach(item => {
+        if (item.id === product.id){
+          product.dataValues.inCartState = true;
+        }
+      })
+    })
     res.send(products)
   }).catch(next)
 })
@@ -23,7 +31,7 @@ router.get('/:id', function (req, res, next){
 router.put('/:id', function (req, res, next){
 	Product.findById(req.params.id)
   .then(function (product){
-    product.update(req.body)    
+    product.update(req.body)
   }).then(function (){
   	res.status(200).send("updated")
   })
@@ -31,14 +39,14 @@ router.put('/:id', function (req, res, next){
 })//updating politician and restrict to admin
 
 
-router.delete('/:id', function(req, res, next){ //deleting a politician restrict to admin 
+router.delete('/:id', function(req, res, next){ //deleting a politician restrict to admin
 // if(req.user.status!='admin'){
 //   res.status(403).send("forbidden")
 //   return
 // }
 Product.findById(req.params.id)
   .then(function (product){
-    product.destroy()    
+    product.destroy()
   }).then(function (){
   	res.status(200).send("deleted")
   })
