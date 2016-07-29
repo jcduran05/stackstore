@@ -9,8 +9,8 @@ app.config(function($stateProvider) {
 app.controller('CartController', function($scope, CartFactory, $state) {
 
   $scope.cart = null;
-  $scope.inCartState = true;
-
+  $scope.incart = true;
+  console.log('are you updating')
   CartFactory.getCart()
     .then(function(cart) {
       cart = cart.map(function(item) {
@@ -21,10 +21,7 @@ app.controller('CartController', function($scope, CartFactory, $state) {
     })
 
   $scope.checkout = function() {
-    CartFactory.checkout()
-      .then(function(order) {
-        $state.go('products')
-      })
+    $state.go('checkout')
   }
 
 })

@@ -3,7 +3,7 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
 		restrict:'E',
 		scope: {
 			products: '=',
-      inCartState: '='
+      incart: '='
 		},
 		templateUrl: 'js/product/index.html',
 		link: function (scope){
