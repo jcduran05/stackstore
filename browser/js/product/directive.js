@@ -1,4 +1,4 @@
-app.directive('testProducts', function(productFactory, $state, CartFactory){
+app.directive('testProducts', function(productFactory, $state, CartFactory, IsAdminFactory){
 	return {
 		restrict:'E',
 		scope: {
@@ -7,6 +7,12 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
 		},
 		templateUrl: 'js/product/index.html',
 		link: function (scope){
+      scope.isAdmin = null;
+
+      IsAdminFactory.isAdmin()
+      .then(function(status){
+        scope.isAdmin = status;
+      })
 
       scope.deleter = function (id) {
         productFactory.deleteById(id)
@@ -43,7 +49,7 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
               callback: function (){
                 CartFactory.addToCart(id)
                 .then(function (){
-                  $state.go('cart') //eventually make checkout
+                  $state.go('checkout') //eventually make checkout
                 })
               }
             },
@@ -68,7 +74,7 @@ app.directive('testProducts', function(productFactory, $state, CartFactory){
 	}
 })
 
-app.directive('singleProduct', function(productFactory, $state, CartFactory){
+app.directive('singleProduct', function(productFactory, $state, CartFactory, IsAdminFactory){
 	return {
 		restrict:'E',
 		scope: {
@@ -76,6 +82,12 @@ app.directive('singleProduct', function(productFactory, $state, CartFactory){
 		},
 		templateUrl: 'js/product/templates/product.html',
     link: function (scope){
+      scope.isAdmin = null;
+
+      IsAdminFactory.isAdmin()
+      .then(function(status){
+        scope.isAdmin = status;
+      })
 
       scope.deleter = function (id) {
         productFactory.deleteById(id)
@@ -105,7 +117,7 @@ app.directive('singleProduct', function(productFactory, $state, CartFactory){
               callback: function (){
                 CartFactory.addToCart(id)
                 .then(function (){
-                  $state.go('cart') //eventually make checkout
+                  $state.go('checkout') //eventually make checkout
                 })
               }
             },
@@ -115,7 +127,6 @@ app.directive('singleProduct', function(productFactory, $state, CartFactory){
             }
           }
         })
-        // CartFactory.addToCart(id)
       }
 
 
@@ -129,65 +140,3 @@ app.directive('singleProduct', function(productFactory, $state, CartFactory){
     }
 	}
 })
-
-
-
-function productDirectiveFn(scope){
-
-      scope.deleter = function (id) {
-        productFactory.deleteById(id)
-        .then(function(res){
-          $state.reload()
-        });
-      }
-      scope.addToCart = function(id){
-        var name, price;
-        scope.products.forEach(function (product){
-          if (product.id === id){
-            name = product.firstName + ' ' + product.lastName;
-            price = product.price;
-          }
-        })
-        bootbox.dialog({
-          message: '$' + price,
-          title: 'Add ' + name + ' to cart?',
-          buttons: {
-            success: {
-              label: 'Add to cart',
-              className: 'btn-success',
-              callback: function (){
-                console.log('worked')
-                CartFactory.addToCart(id)
-                .then(function (){
-                  $state.reload()
-                })
-              }
-            },
-            main: {
-              label: 'Express checkout',
-              className: 'btn-primary',
-              callback: function (){
-                CartFactory.addToCart(id)
-                .then(function (){
-                  $state.go('cart') //eventually make checkout
-                })
-              }
-            },
-            danger: {
-              label: 'Cancel',
-              className:'btn-danger'
-            }
-          }
-        })
-        // CartFactory.addToCart(id)
-      }
-
-
-      scope.removeFromCart = function (id){
-        CartFactory.removeFromCart(id)
-        .then(function (cart){
-          $state.reload()
-        })
-      }
-
-    }

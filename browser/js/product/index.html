@@ -1,6 +1,6 @@
 
 <div>
-	<h2>Politicians</h2>
+	<h2 ng-show="!incart">Politicians</h2>
 
 	<div class="col-md-4" ng-show="!incart">
 	<input type="text" class="form-control" placeholder="Enter politician's first name" ng-model="nameSearch">
@@ -29,8 +29,8 @@
 			<td>{{product.state}}</td>
 			<td><button ng-click="addToCart(product.id)" ng-show="!product.inCartState" type="button" class="btn btn-primary btn-sm btn-spacer">add to cart</button>
       <button class="btn btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState">remove from cart</button></td>
-			<td><button type="button" class="btn btn-primary btn-sm btn-spacer">edit</button></td>
-			<td><button type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></td>
+			<td><button ng-show='isAdmin' type="button" class="btn btn-primary btn-sm btn-spacer">edit</button></td>
+			<td><button ng-show='isAdmin' type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></td>
 		</tr>
 		</tbody>
 		</table>
