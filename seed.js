@@ -63,10 +63,6 @@ var seedUsers = function () {
     var creatingUsers = users.map(function (userObj) {
         return User.create(userObj);
     });
-    creatingUsers.push(Product.create({
-        firstName:'Donald',
-        lastName: 'Trump'
-    }))
 
     return Promise.all(creatingUsers);
 
@@ -75,7 +71,7 @@ var seedUsers = function () {
 var trendingProducts = function(){
     var products = [
     {
-        firstName: 'Hilary',
+        firstName: 'Hillary',
         lastName: 'Clinton',
         party: 'Democrat',
         price: '5',

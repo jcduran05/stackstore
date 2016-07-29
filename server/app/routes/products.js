@@ -9,7 +9,7 @@ var Product = db.model('product')
 router.get('/', function (req, res, next){
   Product.findAll()
   .then(function (products){
-      console.log(req.session.cart)
+    if (!req.session.cart) req.session.cart = [];
     products.forEach(product => {
       req.session.cart.forEach(item => {
         if (item.id === product.id){
