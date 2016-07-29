@@ -10,9 +10,14 @@ app.config(function($stateProvider){
 })
 
 app.controller('HomeCtrl', function($scope, $state, HomeFactorys,productFactory){
+
+  $scope.incart = true
+
 	productFactory.getAll()
 		.then(function(products){
-			$scope.products = products
+			$scope.hot = products.filter(function (product){
+        return product.firstName == 'Hillary' || product.firstName == 'Donald' || product.firstName == 'Bernie' || product.firstName == 'Barack'
+      })
 		});
 
 	$scope.myInterval = 5000;

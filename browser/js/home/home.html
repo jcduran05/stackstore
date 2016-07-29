@@ -1,33 +1,23 @@
-<div class= "row">
 
-	<div class = "col-lg-12 col-xs-12 homeCarousel">
-		  <div ng-controller="HomeCtrl" id="slides_control">
-		    <div class="noPadding">
-		      <uib-carousel interval="myInterval">
-		        <uib-slide ng-repeat="slide in slides" active="slide.active">
-		          <img ng-src="{{slide.image}}">
-		          <div class="carousel-caption">
-		            <h4>2016 Elections</h4>
-		          </div>
-		        </uib-slide>
-		      </uib-carousel>
-		    </div>
-		</div>
-	</div>
+<div class="row">
+  <div class = "col-lg-12 col-xs-12 homeCarousel">
+      <div id="slides_control">
+        <div class="noPadding">
+          <uib-carousel interval="myInterval">
+            <uib-slide ng-repeat="slide in slides" active="slide.active">
+              <img ng-src="{{slide.image}}">
+              <div class="carousel-caption">
+                <h4>2016 Elections</h4>
+              </div>
+            </uib-slide>
+          </uib-carousel>
+        </div>
+    </div>
+  </div>
+
+<div class="col-lg-12 homepage">
+  <div class="col-md-12"><h2 style="text-align: center">Who's trending</h2></div>
+  <test-products products="hot" incart="incart"> </test-products>
 
 </div>
-
-<div class="row homepage">
-	<div class ="col-md-3" ng-repeat = "product in products">
-		<div class = "thumbnail">
-			<img src = "/images/{{product.picurl}}">
-				<div class ="caption">
-					<h3>{{product.firstName + " " + product.lastName}}</h3>
-					<p>{{product.party}}</p>
-					<p>{{product.state}}</p>
-					<div><button type="button" class="btn btn-primary btn-sm btn-spacer">add to cart</button></div>
-
-				</div>
-		</div>
-	</div>
 </div>
