@@ -15,7 +15,7 @@ app.controller('RegisterCtrl', function($scope, $state, RegisterFactory, AuthSer
             let obj = {email: $scope.register.email, password: $scope.register.password}
 
             AuthService.login(obj).then(function () {
-                $state.go('home');
+                $state.go('ourhome');
             }).catch(function () {
                 $scope.error = 'Invalid login credentials.';
             });

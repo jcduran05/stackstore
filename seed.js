@@ -101,7 +101,7 @@ var trendingProducts = function(){
         firstName: 'Bernie',
         lastName: 'Sanders',
         party: 'Independent',
-        price: '100110100110100101100110100011',
+        price: '10000000',
         state: 'VT',
         picurl: 'bernie-sanders.jpg',
         rating: '1',
