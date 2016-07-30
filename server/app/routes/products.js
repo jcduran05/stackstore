@@ -15,7 +15,7 @@ router.get('/', function (req, res, next){
 
       if (product.dateBought && new Date() - product.dateBought > 20000){ //if a product has been purchased for more than 5 seconds, it becomes released. may consider adding another value to the view of products with days left until availability.
         console.log(require('chalk').green('bought'), new Date() - product.dateBought, product.firstName)
-        product.dataValues.bought = false
+        product.bought = false
         User.findById(req.user.id)
         .then(user => {
           return Promise.all([user.removeProduct(product), product.update({dateBought: null, bought: false})])

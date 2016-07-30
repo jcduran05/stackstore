@@ -14,7 +14,7 @@ User.hasMany(Product);
 
 Order.belongsTo(User);
 User.hasMany(Order);
-Order.hasMany(Product);
+Order.hasMany(Product); //need product hasMany/belongsToMany orders as well
 // Detail.belongsTo(Order);
 // Detail.hasMany(Product, {as: 'purchase'} );
 
