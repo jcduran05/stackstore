@@ -59,7 +59,6 @@ router.post('/checkout', function (req, res, next){
   })
   .spread((order, user) =>{
     Product.setBought(req.session.cart, user, order)
-    req.session.cart = [];
 
     return Promise.all([stripe.customers.create({card: req.body.stripeToken, email: user.email}), user, order, user.addOrder(order)])
   })
@@ -68,16 +67,24 @@ router.post('/checkout', function (req, res, next){
         amount: order.total * 100,
         currency: 'usd',
         customer: stripeCustomer.id
-      }), Order.findOne({where: {userId: user2.id, total: order.total}})]) //probably should encode stripeId
+      }), Order.findAll({where: {userId: user2.id, total: order.total}})]) //probably should encode stripeId
   })
   .spread((stripeOrder, order) => {
     console.log(chalk.cyan('stripe Order'), stripeOrder)
+    order = order.filter(form => {
+      for (let i = 0; i < req.session.cart.length; i++){
+        if (req.session.cart[i].firstName !== form.productNames[i].split(' ')[0]) return false
+      }
+      if (new Date() - form.createdAt > 3000) return false
+      return true
+    })[0]
     if(stripeOrder.paid){
       return order.update({status: 'paid'})
     } else return order
   })
   .then(order => {
-    res.send({order: order})
+    req.session.cart = [];
+    res.redirect('/orders/' + order.id)
   })
   .catch(next)
 

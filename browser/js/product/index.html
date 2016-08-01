@@ -32,14 +32,14 @@
           <p><strong>State:</strong> {{product.state}}</p>
           <div>
             <span>
-              <button ng-click="addToCart(product.id)" ng-show="!product.inCartState" ng-disabled="product.bought" type="button" class="btn btn-success btn-sm btn-spacer">add to cart</button>
-              <button class="btn btn-sm btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState" ng-disabled="product.bought">remove from cart</button>
+              <button ng-click="addToCart(product.id)" ng-show="!product.inCartState && !inorder" ng-disabled="product.bought" type="button" class="btn btn-success btn-sm btn-spacer">add to cart</button>
+              <button class="btn btn-sm btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState && !inorder" ng-disabled="product.bought">remove from cart</button>
             </span>
 
-            <span><button ng-show='isAdmin' type="button" class="btn btn-primary btn-sm btn-spacer">edit</button></span>
-            <span><button ng-show='isAdmin' type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></span>
+            <span><button ng-show='isAdmin && !inorder' type="button" class="btn btn-primary btn-sm btn-spacer">edit</button></span>
+            <span><button ng-show='isAdmin && !inorder' type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></span>
           </div>
-          <div ng-show="product.bought">
+          <div ng-show="product.bought && !inorder">
             <span class="purchased">Unavailable</span>
           </div>
 
