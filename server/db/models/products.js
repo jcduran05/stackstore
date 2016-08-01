@@ -25,6 +25,13 @@ module.exports = db.define("product", {
     }
 }, {
     instanceMethods: {},
+    scopes: {
+        allReviews: () => ({
+            include: [{
+                model: db.model('review'),
+            }]
+        })
+    },
     classMethods: {
         setBought: function (cart, user, order) {
             let pending = []
@@ -50,7 +57,10 @@ module.exports = db.define("product", {
                 let arr = [].slice.call(arguments)
                 return arr.map((arg) => Boolean(arg.dataValues.bought))
             })
-        }
+        },
+        // reviewAvg: function() {
+        //     return db.model('product').findAll();
+        // }
     },
     hooks: {}
 });
