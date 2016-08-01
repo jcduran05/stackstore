@@ -68,9 +68,9 @@ router.post('/checkout', function (req, res, next){
         amount: order.total * 100,
         currency: 'usd',
         customer: stripeCustomer.id
-      }), user.update({stripeId: stripeCustomer.id}), Order.findOne({where: {userId: user2.id, total: order.total}})]) //probably should encode stripeId
+      }), Order.findOne({where: {userId: user2.id, total: order.total}})]) //probably should encode stripeId
   })
-  .spread((stripeOrder, user, order) => {
+  .spread((stripeOrder, order) => {
     console.log(chalk.cyan('stripe Order'), stripeOrder)
     if(stripeOrder.paid){
       return order.update({status: 'paid'})
