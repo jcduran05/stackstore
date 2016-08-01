@@ -16,5 +16,9 @@ module.exports = {
     "clientSecret": "wz4Ye8Uc9w9S1RX3jYNcTzfP",
     "callbackURL": "http://localhost:1337/auth/google/callback"
   },
+  "STRIPE": {
+    "testSecretKey": "sk_test_Xl8aPq2pTuHPSsUHJJLoeHhk",
+    "testPublicKey": "pk_test_i9QeHVWyjSlZlAOEqEHZmLzl"
+  },
   "LOGGING": true
 };

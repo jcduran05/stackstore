@@ -25,20 +25,18 @@ module.exports = db.define('user', {
     // },
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
-    
+
     status: {
         type: Sequelize.STRING,
          defaultValue: 'guest'
     },
-    creditCard: {
-        type: Sequelize.BIGINT, //eventually encrypt information
+    twitter_id: {
+        type: Sequelize.STRING
     },
     google_id: {
         type: Sequelize.STRING
     },
-    twitter_id: {
-        type: Sequelize.STRING
-    }
+    cart: Sequelize.ARRAY(Sequelize.JSON)
 }, {
     instanceMethods: {
         sanitize: function () {
@@ -67,11 +65,9 @@ module.exports = db.define('user', {
     },
     hooks: {
         beforeCreate: function (user) {
-            if(!user.password) return
-            user.salt = user.Model.generateSalt();
-            user.password = user.Model.encryptPassword(user.password, user.salt);
-
-
+                if (!user.password) return
+                user.salt = user.Model.generateSalt();
+                user.password = user.Model.encryptPassword(user.password, user.salt);
         },
         beforeUpdate: function (user) {
             if (user.changed('password')) {
