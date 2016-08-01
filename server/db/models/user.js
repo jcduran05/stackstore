@@ -35,6 +35,9 @@ module.exports = db.define('user', {
     },
     google_id: {
         type: Sequelize.STRING
+    },
+    twitter_id: {
+        type: Sequelize.STRING
     }
 }, {
     instanceMethods: {
@@ -64,8 +67,11 @@ module.exports = db.define('user', {
     },
     hooks: {
         beforeCreate: function (user) {
-                user.salt = user.Model.generateSalt();
-                user.password = user.Model.encryptPassword(user.password, user.salt);
+            if(!user.password) return
+            user.salt = user.Model.generateSalt();
+            user.password = user.Model.encryptPassword(user.password, user.salt);
+
+
         },
         beforeUpdate: function (user) {
             if (user.changed('password')) {

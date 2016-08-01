@@ -20,7 +20,8 @@ name in the environment files.
 var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
-var Product = db.model('product')
+var Product = db.model('product');
+var Review = db.model('review');
 var fs = require('fs');
 var politicians = fs.readFileSync('./senators.json', 'utf8');
 var politiciansObj = JSON.parse(politicians);
@@ -112,6 +113,25 @@ var trendingProducts = function(){
     return Promise.all(creatingProducts)
 }
 
+var seedReviews = [
+    {
+        userId: 1,
+        productId: 1,
+        title: 'random title',
+        content: 'some random content',
+        rating: 2
+    },
+
+    {
+        userId: 2,
+        productId: 1,
+        title: 'random other title',
+        content: 'some other random content',
+        rating: 4
+    }
+];
+
+
 
 db.sync({ force: true })
     .then(function () {
@@ -122,6 +142,9 @@ db.sync({ force: true })
     })
     .then(function() {
         return seedUsers();
+    })
+    .then(function() {
+        return Review.bulkCreate(seedReviews);
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));

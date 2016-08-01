@@ -15,28 +15,38 @@ module.exports = function (app, db) {
         callbackUrl: twitterConfig.callbackUrl
     };
 
-    var createNewUser = function (token, tokenSecret, profile) {
-        return User.create({
-            twitter_id: profile.id
-        });
-    };
+    // var createNewUser = function (token, tokenSecret, profile) {
+    //     return User.create({
+    //         twitter_id: profile.id,
+    //         email: 'testman@gmail.com'
+    //     });
+    // };
 
     var verifyCallback = function (token, tokenSecret, profile, done) {
+        console.log(profile)
 
-        UserModel.findOne({
+        User.findOne({
             where: {
                 twitter_id: profile.id
             }
-        }).exec()
-            .then(function (user) {
-                if (user) { // If a user with this twitter id already exists.
+        }) .then(function (user) {
+
+                if (user) {
                     return user;
-                } else { // If this twitter id has never been seen before and no user is attached.
-                    return createNewUser(token, tokenSecret, profile);
+                } else {
+                    let first = profile.displayName.split(' ');
+                    return User.create({
+
+                        firstName: first[0],
+                        lastName: first[1],
+                        status: 'registered',
+                        email: profile.username +'@gmail.com',
+                        twitter_id: profile.id,
+                    });
                 }
             })
-            .then(function (user) {
-                done(null, user);
+            .then(function (userToLogin) {
+                done(null, userToLogin);
             })
             .catch(function (err) {
                 console.error('Error creating user from Twitter authentication', err);

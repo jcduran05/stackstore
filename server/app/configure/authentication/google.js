@@ -2,6 +2,8 @@
 
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+// var db = require('../../db')
+// var User = db.model('user')
 
 module.exports = function (app, db) {
 
@@ -16,7 +18,6 @@ module.exports = function (app, db) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
         User.findOne({
                 where: {
                     google_id: profile.id
@@ -27,6 +28,10 @@ module.exports = function (app, db) {
                     return user;
                 } else {
                     return User.create({
+                        firstName: profile.name.givenName,
+                        lastName: profile.name.familyName,
+                        status: 'registered',
+                        email: profile.emails[0].value,
                         google_id: profile.id
                     });
                 }
