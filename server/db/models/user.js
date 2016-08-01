@@ -25,12 +25,13 @@ module.exports = db.define('user', {
     // },
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
+    
     status: {
         type: Sequelize.STRING,
          defaultValue: 'guest'
     },
     creditCard: {
-        type: Sequelize.INTEGER //eventually encrypt information
+        type: Sequelize.BIGINT, //eventually encrypt information
     },
     google_id: {
         type: Sequelize.STRING

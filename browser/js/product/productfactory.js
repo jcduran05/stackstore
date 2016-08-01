@@ -1,3 +1,5 @@
+
+
 app.factory('productFactory', function($http){
 	var product = {}
 	
@@ -19,7 +21,13 @@ app.factory('productFactory', function($http){
 			return response.data
 		})
 	}
+	product.create = function(obj){
+		return $http.post('/api/products/create', obj)
 
+		.then(function(response){
+			return response.data
+		})
+	}
 
 	return product
 })

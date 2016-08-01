@@ -1,4 +1,5 @@
 
+
 'use strict';
 var router = require('express').Router();
 module.exports = router;
@@ -78,3 +79,27 @@ router.delete('/:id', function(req, res, next){ //deleting a politician restrict
     })
     	.catch(next)
 })
+
+router.post('/create', function (req, res, next){
+  // check that product doesnt already exist
+  Product.findOne({where: {firstName: req.body.firstName, lastName: req.body.lastName}})
+  .then(function(productMatch){ 
+  if (productMatch) return Sequelize.Promise.reject("Already Created")
+  else {
+    Product.create(req.body)
+    .then(function(product) {
+    res.status(200).send(product);
+    })
+  }})
+
+  .catch(next);
+  })
+  
+
+              
+
+
+
+
+
+  

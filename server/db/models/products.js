@@ -1,3 +1,4 @@
+
 'use strict';
 var crypto = require('crypto');
 var _ = require('lodash');
@@ -9,9 +10,11 @@ var db = require('../_db');
 module.exports = db.define("product", {
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
+    
     party: Sequelize.STRING,
     price: Sequelize.INTEGER,
-    picurl: Sequelize.STRING,
+    picurl: {type: Sequelize.STRING, defaultValue:'default.png'},
+
     website: Sequelize.STRING,
     state: Sequelize.STRING,
     bought: Sequelize.BOOLEAN,
@@ -51,6 +54,36 @@ module.exports = db.define("product", {
                 return arr.map((arg) => Boolean(arg.dataValues.bought))
             })
         }
-    },
-    hooks: {}
+    }
+
+    // hooks: {
+    //     beforeCreate: function () {
+               
+    //             db.model('product').findOne({where: {firstName: this.firstName, lastName: this.lastName}})
+    //             .then(function(productMatch){
+
+                  
+    //                 // if (productMatch.firstName) console.log(productMatch, "THERE IS A MATCH"); 
+    //                 if (productMatch.firstName) { throw new Error ("THATS THE WRONG THANG"); }
+    //             })
+
+    //     }
+    // }
 });
+
+// db.model('product').hook('beforeCreate', function(aproduct){
+//     db.model('product').findOne({where: {firstName: aproduct.firstName, lastName: aproduct.lastName}})
+//                 .then(function(productMatch){ 
+//                     console.log("HIIIIIIIIIIIIIIIIII", productMatch)
+
+//                 if (productMatch) { 
+//                 console.log("YESSSSSSSSSSSSSSSSSSSS")
+//                 return Sequelize.Promise.reject("Already Created")}
+                   
+            
+//                }).catch(function(err){
+//                     console.log(err)
+    
+//     })
+// })
+

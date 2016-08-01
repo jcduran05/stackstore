@@ -2,6 +2,7 @@
 app.factory('UserFactory', function($http) {
   var UserObj = {};
 
+
   UserObj.fetchAll = function() {
     return $http.get('/api/users')
     .then(function(response) {
@@ -36,6 +37,13 @@ app.factory('UserFactory', function($http) {
     .then(function(response) {
       return response.data;
     });
+  }
+  UserObj.createNew = function(obj){
+    return $http.post('/api/users/create', obj)
+
+    .then(function(response){
+      return response.data
+    })
   }
 
   UserObj.confirmPswd = function (pswd, id){

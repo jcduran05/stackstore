@@ -9,6 +9,17 @@ app.config(function($stateProvider) {
 });
 
 app.controller('UsersController', function($scope, $log, UserFactory, $state) {
+ 
+  $scope.newUser = {}
+  $scope.addUser = function(){
+   
+        UserFactory.createNew($scope.newUser)
+        .then(function(res){
+          $state.reload();
+        }); 
+      }
+
+
   $scope.error = null
   $scope.statuses = ['registered', 'admin'];
 
