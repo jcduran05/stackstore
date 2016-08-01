@@ -7,12 +7,18 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('CheckoutController', function($scope, CartFactory, $state) {
+app.controller('CheckoutController', function($scope, CartFactory, $state, AuthService) {
 
   $scope.products = null;
   $scope.incart = true;
   $scope.tots = 0;
-  console.log('are you updating')
+  $scope.user = null;
+
+  AuthService.getLoggedInUser()
+  .then(function (user){
+    $scope.user = user;
+  })
+
   CartFactory.getCart()
     .then(function(cart) {
       cart = cart.map(function(item) {
