@@ -2,6 +2,7 @@
 var path = require('path');
 var express = require('express');
 var app = express();
+var passport = require('passport');
 
 module.exports = function (db) {
 
@@ -12,6 +13,9 @@ module.exports = function (db) {
     // Routes that will be accessed via AJAX should be prepended with
     // /api so they are isolated from our GET /* wildcard.
     app.use('/api', require('./routes'));
+
+    // app.use(passport.initialize());
+    // app.use(passport.session());
 
 
     /*

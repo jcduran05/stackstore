@@ -36,5 +36,17 @@
 
 <div class='col-md-12'>
 	<h3>Your Total Price Is ${{tots}}</h3>
-  <button class="btn btn-success" ng-click="checkout()">Checkout</button> <!-- this button is temporary in order to test date checking -->
+  <form action="api/cart/checkout" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_i9QeHVWyjSlZlAOEqEHZmLzl"
+    data-amount="{{tots * 100}}"
+    data-name="Demo Site"
+    data-description="2 widgets"
+    data-image="/img/documentation/checkout/marketplace.png"
+    data-locale="auto"
+    data-email="{{user.email}}">
+  </script>
+</form>
+  <!-- <button class="btn btn-success" ng-click="checkout()">Checkout</button>  --><!-- this button is temporary in order to test date checking -->
 </div>

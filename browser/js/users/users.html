@@ -1,3 +1,35 @@
+<section id="users">
+<h1>Add User </h1>
+<form ng-submit="submit()">
+  <div id ="user-form">
+  <div class="col-md-4">
+  <input type="text" class="form-control input-field" placeholder = "users email" ng-model="newUser.email">
+  </div>
+  <div class="col-md-4">
+  <input type="text" class="form-control input-field" placeholder="user's password" ng-model="newUser.password">
+
+  </div>
+  <div class="col-md-4">
+  <input type="text" class="form-control input-field" placeholder="user status" ng-model="newUser.status">
+  </div>
+  
+  <div class="col-md-4">
+  <input type="text" class="form-control input-field" placeholder= "credit card number" ng-model="newUser.creditCard">
+  </div>
+  
+  <div class="col-md-4">
+  <input type="text" class="form-control input-field" placeholder="first name" ng-model="newUser.firstName">
+  </div>
+  <div class="col-md-4">
+  <input type="text" class="form-control input-field" placeholder="last name" ng-model="newUser.lastName">
+  </div>
+  
+   <button ng-click="addUser()" type="button" class="btn btn-success btn-sm btn-spacer input-fielda">add User</button>
+  </div>
+  </form>
+
+
+
 <div class="col-md-8">
     <alert type="danger" ng-show="error">
       {{error}}
@@ -35,5 +67,6 @@
       </tbody>
     </table>
 </div>
+</section>
 
 <!-- add a col-md-4 form to add a user -->
