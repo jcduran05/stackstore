@@ -6,8 +6,15 @@ var User = db.model('user')
 var Product = db.model('product')
 var Order = db.model('order')
 var Promise = require('bluebird')
+var chalk = require('chalk')
 
 router.get('/', function(req, res, next){
+  if (req.user){
+    User.findById(req.user.id)
+    .then(user =>{
+      console.log(chalk.green('stored cart'), user.cart)
+    })
+  }
 	res.send(req.session.cart ? req.session.cart : [])
 })
 

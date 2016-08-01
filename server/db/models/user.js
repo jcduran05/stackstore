@@ -34,7 +34,8 @@ module.exports = db.define('user', {
     },
     google_id: {
         type: Sequelize.STRING
-    }
+    },
+    cart: Sequelize.ARRAY(Sequelize.JSON)
 }, {
     instanceMethods: {
         sanitize: function () {
