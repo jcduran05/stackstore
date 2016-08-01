@@ -44,7 +44,9 @@ app.controller('SingleUserController', function($scope, $log, UserFactory, $stat
       return
     }
 
-    $scope.user.password = $scope.newPswd ? $scope.newPswd : $scope.oldPswd;
+    if (!$scope.newPswd){
+      delete $scope.user.password
+    }
     UserFactory.update(id, $scope.user)
     .then(function(user){
       $scope.user = user
