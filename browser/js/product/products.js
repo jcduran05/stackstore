@@ -14,7 +14,7 @@ app.config(function($stateProvider){
 app.config(function($stateProvider){
 	$stateProvider.state('product', {
 		url:'/product/:id',
-		template: '<single-product product="product"></single-product>',
+		templateUrl: 'js/product/templates/singleProduct.html',
 		controller: 'ProductCtrl',
 		resolve: {
 			oneProduct: function(productFactory, $stateParams){
@@ -33,9 +33,76 @@ app.controller('ProductsCtrl', function($scope, $state, allProducts) {
 });
 
 
-app.controller('ProductCtrl', function($scope, oneProduct, CartFactory) {
+app.controller('ProductCtrl', function($scope, $rootScope, oneProduct, CartFactory, reviewFactory, $stateParams) {
 
 	$scope.product = oneProduct;
+	$scope.max = 5;
+
+  // Review related
+	$scope.error = null
+	$scope.reviewSuccess = null
+	$scope.showReview = false;
+
+	$scope.showReviewForm = function () {
+	  if($rootScope.user) {
+	    $scope.showReview = true;
+
+	    $scope.review = {};
+
+	    // If current user has submitted a review for this
+	    // product, load that data into the form
+	    if ($scope.product.reviews) {
+	    	$scope.product.reviews.forEach(function(reviewObj) {
+	    		if (reviewObj.userId == $rootScope.user.id) {
+	    			$scope.review.title = reviewObj.title;
+	    			$scope.review.content = reviewObj.content;
+	    			$scope.review.reviewId = reviewObj.id;
+	    			$scope.review.rating = reviewObj.rating;
+	    		}
+	    	});
+	    }
+	  } else {
+	  	// Only allow logged in users to view the form
+	    $scope.error = 'Must be logged in to write a review.';
+	  }
+	}
+
+	$scope.sendReview = function (review) {
+		if(!$rootScope.user) {
+			$scope.error = 'Must be logged in to write a review.';
+			return;
+	  }
+
+	  // If user already submitted a review
+	  // for this product, update the review
+	  if ($scope.review.reviewId) {
+		  reviewFactory.update(review, $stateParams.id, review.reviewId)
+		  .then(function(review) {
+		  		$scope.reviewSuccess = 'Review updated.';
+		  		return reviewFactory.fetchAll($stateParams.id);
+		  })
+			.then(function(reviews) {
+				$scope.product.reviews = reviews;
+			})
+	    .catch(function (err) {
+      $scope.error = err.message || 'Something went wrong!';
+    	});
+		} else {
+		  // New review. This use has not submitted
+		  // a review for this product
+			reviewFactory.create(review, $stateParams.id)
+			.then(function(review) {
+				$scope.reviewSuccess = 'Review created.';
+				return reviewFactory.fetchAll($stateParams.id);
+			})
+			.then(function(reviews) {
+				$scope.product.reviews = reviews;
+			})
+	    .catch(function (err) {
+      $scope.error = err.message || 'Something went wrong!';
+    	});
+		}
+	}
 
 });
 

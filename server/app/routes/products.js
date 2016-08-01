@@ -5,6 +5,7 @@ module.exports = router;
 var db = require('../../db')
 var User = db.model('user')
 var Product = db.model('product')
+var Review = db.model('review')
 var Promise = require('bluebird')
 
 router.get('/', function (req, res, next){
@@ -35,11 +36,13 @@ router.get('/', function (req, res, next){
     })
     res.send(products)
   }).catch(next)
-})
+});
 
 router.get('/:id', function (req, res, next){
-  Product.findById(req.params.id)
+  Product.scope('allReviews').findById(req.params.id)
   .then(function (product){
+    // product.setRating();
+
     if (!req.session.cart) req.session.cart = [];
     req.session.cart.forEach(item => {
       if (item.id === product.id){
@@ -48,6 +51,54 @@ router.get('/:id', function (req, res, next){
   })
     res.send(product)
   }).catch(next)
+})
+
+router.get('/:id/review', function(req,res,next) {
+  Review.findAll({
+    where: {
+      productId: req.params.id
+    }
+  })
+  .then(function(reviews) {
+    res.status(200).send(reviews);
+  })
+  .catch(next);
+});
+
+router.post('/:id/review', function (req, res, next){
+  if (req.user.status !== 'registered' && req.user.status !== 'admin'){
+    res.status(403).send('Forbidden');
+    return
+  }
+
+  req.body.productId = req.params.id;
+  req.body.userId = req.user.id;
+  Review.create(req.body)
+  .then(function(review) {
+    res.status(200).send(review);
+  })
+  .catch(next);
+})
+
+router.put('/:id/review/:reviewId', function (req, res, next){
+  if (req.user.status !== 'registered' && req.user.status !== 'admin'){
+    res.status(403).send('Forbidden');
+    return
+  }
+
+  req.body.productId = req.params.id;
+  req.body.userId = req.user.id;
+  Review.findById(req.params.reviewId)
+  .then(function(review) {
+
+    // console.log(review);
+
+    return review.update(req.body)
+  })
+  .then(function(review) {
+    res.status(200).send(review);
+  })
+  .catch(next);
 })
 
 router.put('/:id', function (req, res, next){
