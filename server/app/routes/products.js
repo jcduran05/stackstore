@@ -5,17 +5,33 @@ module.exports = router;
 var db = require('../../db')
 var User = db.model('user')
 var Product = db.model('product')
+var Promise = require('bluebird')
 
 router.get('/', function (req, res, next){
   Product.findAll()
   .then(function (products){
     if (!req.session.cart) req.session.cart = [];
     products.forEach(product => {
+
+      if (product.dateBought && new Date() - product.dateBought > 20000){ //if a product has been purchased for more than 5 seconds, it becomes released. may consider adding another value to the view of products with days left until availability.
+        console.log(require('chalk').green('bought'), new Date() - product.dateBought, product.firstName)
+        product.bought = false
+        User.findById(req.user.id)
+        .then(user => {
+          return Promise.all([user.removeProduct(product), product.update({dateBought: null, bought: false})])
+        })
+        .then(() => {
+          console.log(require('chalk').cyan('user removed'))
+        })
+      }
+
       req.session.cart.forEach(item => {
         if (item.id === product.id){
           product.dataValues.inCartState = true;
         }
       })
+
+
     })
     res.send(products)
   }).catch(next)
