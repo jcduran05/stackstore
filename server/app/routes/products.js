@@ -28,6 +28,7 @@ router.get('/', function (req, res, next){
       }
 
       req.session.cart.forEach(item => {
+        if (!item) return
         if (item.id === product.id){
           product.dataValues.inCartState = true;
         }
@@ -134,7 +135,7 @@ router.delete('/:id', function(req, res, next){ //deleting a politician restrict
 router.post('/create', function (req, res, next){
   // check that product doesnt already exist
   Product.findOne({where: {firstName: req.body.firstName, lastName: req.body.lastName}})
-  .then(function(productMatch){ 
+  .then(function(productMatch){
   if (productMatch) return Sequelize.Promise.reject("Already Created")
   else {
     Product.create(req.body)
@@ -145,12 +146,12 @@ router.post('/create', function (req, res, next){
 
   .catch(next);
   })
-  
-
-              
 
 
 
 
 
-  
+
+
+
+

@@ -46,10 +46,9 @@ module.exports = function (app, db) {
             req.logIn(user, function (loginErr) {
                 if (loginErr) return next(loginErr);
                 // We respond with a response object that has user with _id and email.
-                console.log(chalk.red('session'), req.session)
                 User.findById(req.user.id)
                 .then(user => {
-                    req.session.cart = req.session.cart.concat(user.cart)
+                    if (user.cart) req.session.cart = req.session.cart.concat(user.cart)
 
                     res.status(200).send({
                         user: user.sanitize()
