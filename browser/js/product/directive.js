@@ -109,6 +109,7 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
                 console.log('worked')
                 CartFactory.addToCart(id)
                 .then(function (){
+                  scope.filterOrder = true
                   $state.reload()
                 })
               }
