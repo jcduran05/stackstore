@@ -4,7 +4,8 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
 		restrict:'E',
 		scope: {
 			products: '=',
-      incart: '='
+      incart: '=',
+      inorder: '='
 		},
 		templateUrl: 'js/product/index.html',
 
@@ -27,9 +28,9 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
       .then(function(status){
         scope.isAdmin = status;
       })
-      
 
-     
+
+
       scope.deleter = function (id) {
         productFactory.deleteById(id)
         .then(function(res){
