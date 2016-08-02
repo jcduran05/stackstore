@@ -77,9 +77,11 @@ router.put('/:id', function (req, res, next){
   User.findById(req.params.id)
   .then(function (user){
     if (!user) throw {status: 400, message:'User already exists'};
+
     else return user.update(req.body);
   })
   .then(function(user){
+    console.log("yayy", req.body)
     res.status(200).send(user);
   }).catch(next);
 })

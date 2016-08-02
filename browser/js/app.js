@@ -1,5 +1,12 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate']);
+
+
+// var app = angular.module("app", ["xeditable"]);
+// app.run(function(editableOptions) {
+//   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+// });
+
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router','ui.bootstrap', 'ngAnimate',"xeditable"]);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
@@ -11,6 +18,10 @@ app.config(function ($urlRouterProvider, $locationProvider) {
         window.location.reload();
     });
 });
+
+// app.run(function(editableOptions) {
+//   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+// });
 
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
@@ -54,7 +65,10 @@ app.run(function ($rootScope, AuthService, $state) {
                 $state.go('login');
             }
         });
+        
 
     });
-
+app.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 });

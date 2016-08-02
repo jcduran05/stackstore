@@ -1,5 +1,7 @@
 
 
+
+
 <div class="col-md-12">
 <div class="row" style="padding-bottom: 20px">
 
@@ -27,16 +29,22 @@
       <img  src = "/images/{{product.picurl}}">
         <div class ="caption">
           <a ui-sref="product({id: product.id})"><h3>{{product.firstName + " " + product.lastName}}</h3></a>
-          <p><strong>Price:</strong> {{"$" + product.price+ " "}}</p>
-          <p><strong>Party:</strong> {{product.party}}</p>
-          <p><strong>State:</strong> {{product.state}}</p>
+          <p ng-hide='isAdmin'><strong>Price:</strong> {{"$" + product.price+ " "}}</p>
+          <p ng-hide='isAdmin'><strong>Party:</strong> {{product.party}}</p>
+          <p ng-hide='isAdmin'><strong>State:</strong> {{product.state}}</p>
+          
+          <section ng-show = "turnon">
+          <p ng-show='isAdmin'><strong>Price:</strong><a onbeforesave="editPrice(product.id, product, $data)" href="#" editable-text="product.price">{{"$" + product.price+ " "}}</a></p>
+          <p ng-show='isAdmin'><strong>Party:</strong><a onbeforesave="editParty(product.id, product, $data)" href="#" editable-text="product.party"> {{product.party}}</a></p>
+          <p ng-show='isAdmin'><strong>State:</strong><a onbeforesave="editState(product.id, product, $data)" href="#" editable-text="product.state">{{product.state}}</a><p>
+          </section>
           <div>
             <span>
               <button ng-click="addToCart(product.id)" ng-show="!product.inCartState" ng-disabled="product.bought" type="button" class="btn btn-success btn-sm btn-spacer">add to cart</button>
               <button class="btn btn-sm btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState" ng-disabled="product.bought">remove from cart</button>
             </span>
 
-            <span><button ng-show='isAdmin' type="button" class="btn btn-primary btn-sm btn-spacer">edit</button></span>
+            <span><button ng-show='isAdmin' type="button" class="btn btn-primary btn-sm btn-spacer" ng-click=switch()>edit</button></span>
             <span><button ng-show='isAdmin' type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></span>
           </div>
           <div ng-show="product.bought">
