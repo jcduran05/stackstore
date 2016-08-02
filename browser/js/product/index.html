@@ -18,8 +18,8 @@
 
 
 
-  <div class ="col-md-3" ng-repeat="product in products | filter: { firstName: firstNameSearch, lastName: lastNameSearch} | filter:below">
-    <div class = "thumbnail">
+  <div class ="col-md-3 col-sm-6" ng-repeat="product in products | filter: { firstName: firstNameSearch, lastName: lastNameSearch} | filter:below">
+    <div class = "thumbnail" style="min-height: 480px;">
       <img  src = "/images/{{product.picurl}}">
         <div class ="caption">
           <a ui-sref="product({id: product.id})"><h3>{{product.firstName + " " + product.lastName}}</h3></a>

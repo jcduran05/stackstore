@@ -43,6 +43,20 @@ app.controller('ProductCtrl', function($scope, $rootScope, oneProduct, CartFacto
 	$scope.reviewSuccess = null
 	$scope.showReview = false;
 
+  var ratingArr = [];
+  $scope.ratingAvg = 0;
+	if ($scope.product.reviews.length) {
+		$scope.product.reviews.forEach(function(reviewObj) {
+			ratingArr.push(reviewObj.rating);
+		});
+
+		var ratingSum = ratingArr.reduce(function(start, curr){
+			return start + curr;
+		});
+
+		$scope.ratingAvg = ratingSum / ratingArr.length
+	}
+
 	$scope.showReviewForm = function () {
 	  if($rootScope.user) {
 	    $scope.showReview = true;
@@ -51,13 +65,12 @@ app.controller('ProductCtrl', function($scope, $rootScope, oneProduct, CartFacto
 
 	    // If current user has submitted a review for this
 	    // product, load that data into the form
-	    if ($scope.product.reviews) {
+	    if ($scope.product.reviews.length) {
 	    	$scope.product.reviews.forEach(function(reviewObj) {
 	    		if (reviewObj.userId == $rootScope.user.id) {
 	    			$scope.review.title = reviewObj.title;
 	    			$scope.review.content = reviewObj.content;
 	    			$scope.review.reviewId = reviewObj.id;
-	    			$scope.review.rating = reviewObj.rating;
 	    		}
 	    	});
 	    }
