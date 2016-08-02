@@ -1,4 +1,6 @@
 
+
+
 app.directive('testProducts', function(productFactory, $state, CartFactory, IsAdminFactory, $rootScope){
 	return {
 		restrict:'E',
@@ -29,7 +31,11 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
         scope.isAdmin = status;
       })
 
-
+      
+      scope.turnon = false;
+      scope.switch = function(){
+        scope.turnon = !scope.turnon
+      }
 
       scope.deleter = function (id) {
         productFactory.deleteById(id)
@@ -37,6 +43,35 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
           $state.reload()
         });
       }
+
+      scope.editPrice = function(id, product, $data){
+        product.price = $data;
+        productFactory.editPrice(id, product)
+        .then(function(item){
+          $state.reload();
+        })
+      }
+
+      scope.editParty = function(id, product, $data){
+        product.party = $data;
+        productFactory.editPrice(id, product)
+        .then(function(item){
+          $state.reload();
+        })
+      }
+
+      scope.editState = function(id, product, $data){
+        product.state = $data;
+        productFactory.editPrice(id, product)
+        .then(function(item){
+          $state.reload();
+        })
+      }
+
+
+
+
+
       scope.addToCart = function(id){
         var name, price;
         scope.products.forEach(function (product){

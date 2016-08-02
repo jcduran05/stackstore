@@ -104,11 +104,13 @@ router.put('/:id/review/:reviewId', function (req, res, next){
 })
 
 router.put('/:id', function (req, res, next){
+  console.log("HERET")
   if(req.user.status!='admin'){
     res.status(403).send("forbidden")
     return
   }
 	Product.findById(req.params.id)
+  
   .then(function (product){
     product.update(req.body)
   }).then(function (){
@@ -119,6 +121,7 @@ router.put('/:id', function (req, res, next){
 
 
 router.delete('/:id', function(req, res, next){ //deleting a politician restrict to admin
+
   if(req.user.status!='admin'){
     res.status(403).send("forbidden")
     return
@@ -146,6 +149,7 @@ router.post('/create', function (req, res, next){
 
   .catch(next);
   })
+
 
 
 
