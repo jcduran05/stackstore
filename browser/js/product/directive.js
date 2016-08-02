@@ -27,7 +27,9 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
       .then(function(status){
         scope.isAdmin = status;
       })
+      
 
+     
       scope.deleter = function (id) {
         productFactory.deleteById(id)
         .then(function(res){

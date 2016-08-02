@@ -26,10 +26,20 @@ app.config(function($stateProvider){
 
 
 
-app.controller('ProductsCtrl', function($scope, $state, allProducts) {
-
+app.controller('ProductsCtrl', function($scope, $state, allProducts, productFactory, IsAdminFactory) {
+	$scope.newProduct={}
 	$scope.products = allProducts;
-
+	 $scope.addUser = function(){
+	 	console.log($scope.newProduct)
+        productFactory.create($scope.newProduct)
+        .then(function(res){
+          $state.reload();
+        });
+      }
+      IsAdminFactory.isAdmin()
+      .then(function(status){
+      $scope.isAdmin = status;
+       })
 });
 
 
@@ -71,6 +81,7 @@ app.controller('ProductCtrl', function($scope, $rootScope, oneProduct, CartFacto
 	    			$scope.review.title = reviewObj.title;
 	    			$scope.review.content = reviewObj.content;
 	    			$scope.review.reviewId = reviewObj.id;
+	    			// $scope.review.rating = reviewObj.rating;
 	    		}
 	    	});
 	    }
@@ -118,8 +129,3 @@ app.controller('ProductCtrl', function($scope, $rootScope, oneProduct, CartFacto
 	}
 
 });
-
-
-
-
-// $state.go('playlist', {playlistId: playlist.id});

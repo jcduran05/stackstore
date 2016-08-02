@@ -1,3 +1,4 @@
+
 'use strict';
 var crypto = require('crypto');
 var _ = require('lodash');
@@ -9,9 +10,11 @@ var db = require('../_db');
 module.exports = db.define("product", {
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
+
     party: Sequelize.STRING,
     price: Sequelize.INTEGER,
-    picurl: Sequelize.STRING,
+    picurl: {type: Sequelize.STRING, defaultValue:'default.png'},
+
     website: Sequelize.STRING,
     state: Sequelize.STRING,
     bought: Sequelize.BOOLEAN,
@@ -63,4 +66,8 @@ module.exports = db.define("product", {
         // }
     },
     hooks: {}
+
 });
+
+
+

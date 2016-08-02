@@ -1,4 +1,6 @@
 'use strict';
+var chalk = require('chalk')
+
 var path = require('path');
 var session = require('express-session');
 var passport = require('passport');
@@ -6,9 +8,8 @@ var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 var ENABLED_AUTH_STRATEGIES = [
     'local',
-    //'twitter',
-    //'facebook',
-    //'google'
+    'twitter',
+    'google'
 ];
 
 module.exports = function (app, db) {
@@ -64,8 +65,16 @@ module.exports = function (app, db) {
 
     // Simple /logout route.
     app.get('/logout', function (req, res) {
-        req.logout();
-        res.status(200).end();
+        User.findById(req.user.id)
+        .then(user => {
+            return user.update({cart: req.session.cart})
+        })
+        .then(cart => {
+            console.log(chalk.green('cart stored'), cart)
+            req.session.cart = [];
+            req.logout();
+            res.status(200).end();
+        })
     });
 
     // Each strategy enabled gets registered.

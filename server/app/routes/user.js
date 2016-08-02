@@ -102,3 +102,17 @@ router.post('/', function (req, res, next){
   .catch(next);
 })
 
+
+router.post('/create', function (req, res, next){
+  // check that product doesnt already exist
+  
+  User.create(req.body)
+
+  .then(function(user) {
+    res.status(200).send(user);
+  })
+  .catch(next);
+})
+
+
+
