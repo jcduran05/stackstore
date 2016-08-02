@@ -1,7 +1,7 @@
 <single-product product="product"></single-product>
 
 <div class="col-md-12">
-  <h3 style="display: inline">Reviews</h3>&nbsp;&nbsp;<span>{{product.rating}} out of 5 stars</span>&nbsp;&nbsp;<span><button type="button" class="btn btn-sm btn-primary" ng-click="showReviewForm()">Add a customer review</button></span>
+  <h3 style="display: inline">Reviews</h3>&nbsp;&nbsp;<span ng-show="ratingAvg">{{ ratingAvg }} out of 5 stars&nbsp;&nbsp;</span><span><button type="button" class="btn btn-sm btn-primary" ng-click="showReviewForm()">Add a customer review</button></span>
   <alert type="danger" ng-show="error">
     {{ error }}
   </alert>

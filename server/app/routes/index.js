@@ -8,6 +8,8 @@ router.use('/users', require('./user'))
 
 router.use('/products', require('./products'))
 
+router.use('/orders', require('./order'))
+
 // router.use('/google', require('./oauth'))
 
 router.use('/cart', require('./cart'))

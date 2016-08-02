@@ -1,0 +1,26 @@
+<div class="col-md-8">
+    <alert type="danger" ng-show="error">
+      {{error}}
+    </alert>
+    <h1 ng-show="!error">All orders</h1>
+    <table class="table table-condensed" ng-show="!error">
+      <thead>
+        <tr>
+          <th> Confirmation Number </th>
+          <th> First Name </th>
+          <th> Last Name </th>
+          <th> Email </th>
+          <th> Status </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="order in orders">
+          <td><a ui-sref="order({id: order.id})"> {{ order.confirmation }} </a> </td>
+          <td><a ui-sref="order({id: order.id})"> {{ order.user.firstName }} </a></td>
+          <td><a ui-sref="order({id: order.id})"> {{ order.user.lastName }} </a></td>
+          <td><a ui-sref="order({id: order.id})"> {{ order.user.email }} </a></td>
+          <td>{{ order.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

@@ -24,8 +24,8 @@
 
 
 
-  <div class ="col-md-3" ng-repeat="product in products | filter: { firstName: firstNameSearch, lastName: lastNameSearch} | filter:below">
-    <div class = "thumbnail">
+  <div class ="col-md-3 col-sm-6" ng-repeat="product in products | filter: { firstName: firstNameSearch, lastName: lastNameSearch} | filter:below">
+    <div class = "thumbnail" style="min-height: 480px;">
       <img  src = "/images/{{product.picurl}}">
         <div class ="caption">
           <a ui-sref="product({id: product.id})"><h3>{{product.firstName + " " + product.lastName}}</h3></a>
@@ -40,14 +40,15 @@
           </section>
           <div>
             <span>
-              <button ng-click="addToCart(product.id)" ng-show="!product.inCartState" ng-disabled="product.bought" type="button" class="btn btn-success btn-sm btn-spacer">add to cart</button>
-              <button class="btn btn-sm btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState" ng-disabled="product.bought">remove from cart</button>
+              <button ng-click="addToCart(product.id)" ng-show="!product.inCartState && !inorder" ng-disabled="product.bought" type="button" class="btn btn-success btn-sm btn-spacer">add to cart</button>
+              <button class="btn btn-sm btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState && !inorder" ng-disabled="product.bought">remove from cart</button>
             </span>
 
-            <span><button ng-show='isAdmin' type="button" class="btn btn-primary btn-sm btn-spacer" ng-click=switch()>edit</button></span>
-            <span><button ng-show='isAdmin' type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></span>
+            <span><button ng-show='isAdmin && !inorder' type="button" class="btn btn-primary btn-sm btn-spacer" ng-click=switch()>edit</button></span>
+            <span><button ng-show='isAdmin && !inorder' type="button" class="btn btn-sm btn-danger btn-spacer" ng-click='deleter(product.id)'>delete</button></span>
+
           </div>
-          <div ng-show="product.bought">
+          <div ng-show="product.bought && !inorder">
             <span class="purchased">Unavailable</span>
           </div>
 
