@@ -31,7 +31,7 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
         scope.isAdmin = status;
       })
 
-      
+
       scope.turnon = false;
       scope.switch = function(){
         scope.turnon = !scope.turnon
@@ -62,6 +62,22 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
 
       scope.editState = function(id, product, $data){
         product.state = $data;
+        productFactory.editPrice(id, product)
+        .then(function(item){
+          $state.reload();
+        })
+      }
+
+      scope.editFirstName = function(id, product, $data){
+        product.firstName = $data;
+        productFactory.editPrice(id, product)
+        .then(function(item){
+          $state.reload();
+        })
+      }
+
+      scope.editLastName = function(id, product, $data){
+        product.lastName = $data;
         productFactory.editPrice(id, product)
         .then(function(item){
           $state.reload();

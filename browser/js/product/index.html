@@ -28,12 +28,15 @@
     <div class = "thumbnail" style="min-height: 480px;">
       <img  src = "/images/{{product.picurl}}">
         <div class ="caption">
+          <section ng-show="!turnon">
           <a ui-sref="product({id: product.id})"><h3>{{product.firstName + " " + product.lastName}}</h3></a>
-          <p ng-hide='isAdmin'><strong>Price:</strong> {{"$" + product.price+ " "}}</p>
-          <p ng-hide='isAdmin'><strong>Party:</strong> {{product.party}}</p>
-          <p ng-hide='isAdmin'><strong>State:</strong> {{product.state}}</p>
-          
+          <p ng-show='isAdmin'><strong>Price:</strong> {{"$" + product.price+ " "}}</p>
+          <p ng-show='isAdmin'><strong>Party:</strong> {{product.party}}</p>
+          <p ng-show='isAdmin'><strong>State:</strong> {{product.state}}</p>
+          </section>
+
           <section ng-show = "turnon">
+          <h5><a href="#" editable-text="product.firstName" onbeforesave="editFirstName(product.id, product, $data)">{{product.firstName}}</a> <a href="#" editable-text="product.lastName" onbeforesave="editLastName(product.id, product, $data)">{{product.lastName}}</a></h5>
           <p ng-show='isAdmin'><strong>Price:</strong><a onbeforesave="editPrice(product.id, product, $data)" href="#" editable-text="product.price">{{"$" + product.price+ " "}}</a></p>
           <p ng-show='isAdmin'><strong>Party:</strong><a onbeforesave="editParty(product.id, product, $data)" href="#" editable-text="product.party"> {{product.party}}</a></p>
           <p ng-show='isAdmin'><strong>State:</strong><a onbeforesave="editState(product.id, product, $data)" href="#" editable-text="product.state">{{product.state}}</a><p>
