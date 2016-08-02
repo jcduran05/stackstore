@@ -3,7 +3,6 @@ app.factory('IsAdminFactory', function(AuthService){
 	obj.isAdmin = function(){
 		return AuthService.getLoggedInUser()
 		.then(function(user){
-      console.log(user)
 			if (user && user.status == 'admin'){
 				return true;
 			} else {
