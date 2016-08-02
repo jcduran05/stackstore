@@ -3,7 +3,7 @@
 
 app.factory('productFactory', function($http){
 	var product = {}
-	
+
 
 
 	product.getAll = function(){
