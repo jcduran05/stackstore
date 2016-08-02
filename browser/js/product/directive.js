@@ -1,7 +1,7 @@
 
 
 
-app.directive('testProducts', function(productFactory, $state, CartFactory, IsAdminFactory, $rootScope){
+app.directive('testProducts', function(productFactory, $state, CartFactory, IsAdminFactory, $rootScope, $filter){
 	return {
 		restrict:'E',
 		scope: {
@@ -12,7 +12,9 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
 		templateUrl: 'js/product/index.html',
 
 		link: function (scope){
+      scope.filterOrder = true
       scope.isAdmin = null;
+      scope.test = 'low to high'
 
       if($rootScope.user) scope.isAdmin = ($rootScope.user.status === "admin" ? true: false)
       else scope.isAdmin = false
@@ -136,6 +138,14 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
         .then(function (cart){
           $state.reload()
         })
+      }
+
+      scope.sort = function (){
+        scope.filterOrder = !scope.filterOrder
+        scope.test = scope.filterOrder ? 'low to high' : 'high to low'
+
+        scope.products = $filter('orderBy')(scope.products, 'price', scope.filterOrder)
+
       }
 
     }

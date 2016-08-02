@@ -8,7 +8,7 @@
 
 
 
-  <div class="col-md-12"><h2 ng-show="!incart">Politicians</h2></div>
+  <div class="col-md-6"><h2 ng-show="!incart">Politicians</h2>  <button class="btn" ng-click="sort()" ng-show="!incart">sort by price ({{test}})</button> </div>
 
   <div class="col-md-4" ng-show="!incart">
   <input type="text" class="form-control" placeholder="Search by politician's first name" ng-model="firstNameSearch">
@@ -21,6 +21,11 @@
   <input type="text" class="form-control" placeholder="Search by maximum price" ng-model="priceSearch">
   </div>
 </div>
+
+
+
+
+
 
 
 
