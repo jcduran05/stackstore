@@ -26,8 +26,9 @@ router.get('/', function(req, res, next) {
       console.log(require('chalk').cyan('users on orders!'), orders)
       orders.forEach((order, i) => {
         if (i > Math.floor(orders.length/2)) return
-        order.user = orders[2 * i]
+        order.user = orders[2 * i].dataValues
       })
+      orders = orders.slice(0, Math.ceiling(orders.length/2))
       res.send(orders)
     }).catch(next)
 })
