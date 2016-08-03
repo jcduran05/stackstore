@@ -26,7 +26,7 @@ router.get('/:userId/:id', function(req, res, next) {
     })
     .spread(function(order, products, user) {
       // check the session make sure user isAdmin OR user on current order. need a fix for guests!
-      if (req.user.status !== 'admin' && order.userId !== req.params.userId) {
+      if (req.user.status !== 'admin' && order.userId != req.params.userId) {
         res.status(403).send('Forbidden');
         return
       }
