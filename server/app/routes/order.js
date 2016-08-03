@@ -19,12 +19,13 @@ router.get('/', function(req, res, next) {
       orders.forEach(order => {
         staged.push(order.getUser())
       })
-      return Promise.all([orders, staged])
+      return Promise.all(orders.concat(staged))
     })
-    .spread((orders, ordersUsers) => {
-      console.log(require('chalk').cyan('users on orders!'), ordersUsers)
+    .spread((orders) => {
+      console.log(require('chalk').cyan('users on orders!'), orders)
       orders.forEach((order, i) => {
-        order.user = ordersUsers[i]
+        if (i > Math.floor(orders.length/2)) return
+        order.user = orders[2 * i]
       })
       res.send(orders)
     }).catch(next)
