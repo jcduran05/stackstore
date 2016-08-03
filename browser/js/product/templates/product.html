@@ -1,5 +1,5 @@
 
-<div class = "col-md-8">
+<div class = "col-md-12">
 	<h2>{{product.firstName + " " + product.lastName}}</h2>
 	<table class="table table-condensed">
 		<thead>
@@ -23,7 +23,7 @@
 		<td>{{product.website}}</td>
 		<td><button ng-click="addToCart(product.id)" ng-show="!product.inCartState" type="button" class="btn btn-success btn-sm btn-spacer">add to cart</button>
       <button class="btn btn-warning" ng-click="removeFromCart(product.id)" ng-show="product.inCartState">remove from cart</button></td>
-		
+
 
 	</tr>
 	</tbody>

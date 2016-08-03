@@ -8,7 +8,7 @@
   <h1> <span> {{user.firstName}} </span> <span>{{user.lastName}}</span> </h1>
   <h3> {{user.email}} </h3>
   <!-- <all-politicians></all-politicians> -->
-  <button ng-click="changeForm()">Edit info</button>
+  <button class="btn btn-primary" ng-click="changeForm()">Edit info</button>
   </div>
 
   <form id="user-form" name="userForm" ng-submit="confirmPswd(oldPswd)" ng-show="!passwordConfirmed && edit">
@@ -16,7 +16,7 @@
       <label for="password"> Confirm old Password </label>
       <input type="password" ng-model="oldPswd" class="form-control">
     </div>
-    <button type="submit" class="btn"> Submit </button>
+    <button type="submit" class="btn btn-primary"> Submit </button>
   </form>
 
 
@@ -41,7 +41,7 @@
       <label for="password"> Re-enter Password </label>
       <input type="password" ng-model="pswdCheck" class="form-control">
     </div>
-    <button type="submit" class="btn"> Submit </button>
+    <button type="submit" class="btn btn-primary"> Submit </button>
   </form>
 
 

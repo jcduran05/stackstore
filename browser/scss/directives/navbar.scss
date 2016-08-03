@@ -2,6 +2,7 @@
   display: block;
   background: rgba(0, 60, 128, 0.82);
   margin-bottom: 0px;
+  border-bottom: 0px;
   .container {
     width: 91%;
     max-width: 1340px;
@@ -26,15 +27,17 @@
     border: 1px rgba(0,60,128,0) solid;
     border-left: 1px rgba(213,222,233,0.44) solid;
     &.active {
-       color: #f1f1f1;
+       color: #ffffff;
+       border-top: 0px solid #880000;
     }
     &:hover {
       background-color: #ffffff;
-      color: #838383;
+      color: #686868;
       border-top: 4px solid #880000;
     }
     &:focus {
       background: none;
+      color: #ffffff;
     }
   }
 
@@ -54,20 +57,29 @@
     }
   }
 
-
-
   .login-button {
     float: right;
-    border: 1px solid black;
+    border: 1px solid #ffffff;
     margin-top: 10px;
     margin-left: 10px;
-    background: none;
+    background: #ffffff;
+    // border-radius: 2px;
+    color: rgba(0, 60, 128, 0.82);
+    font-size: 16px;
     outline: none !important;
+  }
+
+  .login-button2 {
+    float: right;
+    margin-top: 10px;
+    margin-left: 10px;
+    // border-radius: 2px;
+    font-size: 16px;
   }
 
   .welcome {
     float: right;
-    margin-top: 12px;
+    margin-top: 15px;
     span {
       color: black;
       font-size: 16px;

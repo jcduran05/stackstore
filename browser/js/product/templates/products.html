@@ -1,13 +1,12 @@
 
 <section id="products">
-<div class="col-md-12"><h2 ng-show="!incart && isAdmin">Add a Product</h2></div>
+<div class="col-md-12"><h2 ng-show="!incart && isAdmin">Add a product</h2></div>
 	<div id ="product-form">
   <div class="col-md-4 input-field">
   <input type="text" class="form-control" ng-show='isAdmin' placeholder="politician's first name" ng-model="newProduct.firstName">
   </div>
   <div class="col-md-4 input-field">
   <input type="text" class="form-control" ng-show='isAdmin' placeholder="politician's last name" ng-model="newProduct.lastName">
-
   </div>
   <div class="col-md-4 input-field">
   <input type="text" class="form-control" ng-show='isAdmin' placeholder="price" ng-model="newProduct.price">
@@ -25,7 +24,9 @@
   <div class="col-md-8 input-field">
   <input type="text" class="form-control" ng-show='isAdmin' placeholder="picture url" ng-model="newProduct.picurl">
   </div>
+  <div class="col-md-4 input-field">
    <button ng-click="addUser()" type="button" ng-show='isAdmin' class="btn btn-success btn-sm btn-spacer">add Product</button>
+  </div>
    </div>
 
 
