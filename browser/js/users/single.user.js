@@ -62,6 +62,6 @@ app.controller('SingleUserController', function($scope, $log, UserFactory, $stat
   }
 
   $scope.viewOrders = function (){
-    $state.go('userOrders')
+    $state.go('userOrders', {userId: $scope.user.id})
   }
 });
