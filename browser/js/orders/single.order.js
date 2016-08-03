@@ -1,7 +1,7 @@
 
 app.config(function($stateProvider) {
   $stateProvider.state('order', {
-    url: '/orders/:id',
+    url: '/orders/:userId/:id',
     controller: 'SingleOrderController',
     templateUrl: 'js/orders/single.order.html'
   });

@@ -78,7 +78,7 @@ router.post('/checkout', function (req, res, next){
   })
   .then(order => {
     req.session.cart = [];
-    res.redirect('/orders/' + order.id)
+    res.redirect('/orders/' + order.userId + '/' + order.id)
   })
   .catch(next)
 

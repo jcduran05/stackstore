@@ -15,10 +15,10 @@
       </thead>
       <tbody>
         <tr ng-repeat="order in orders">
-          <td><a ui-sref="order({id: order.id})"> {{ order.confirmation }} </a> </td>
-          <td><a ui-sref="order({id: order.id})"> {{ order.user.firstName }} </a></td>
-          <td><a ui-sref="order({id: order.id})"> {{ order.user.lastName }} </a></td>
-          <td><a ui-sref="order({id: order.id})"> {{ order.user.email }} </a></td>
+          <td><a ui-sref="order({userId: order.user.id, id: order.id})"> {{ order.confirmation }} </a> </td>
+          <td><a ui-sref="order({userId: order.user.id, id: order.id})"> {{ order.user.firstName }} </a></td>
+          <td><a ui-sref="order({userId: order.user.id, id: order.id})"> {{ order.user.lastName }} </a></td>
+          <td><a ui-sref="order({userId: order.user.id, id: order.id})"> {{ order.user.email }} </a></td>
           <td>{{ order.status }}</td>
         </tr>
       </tbody>
