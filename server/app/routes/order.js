@@ -15,6 +15,16 @@ router.get('/', function(req, res, next) {
   Order.findAll()
     .then(function(orders) {
       // find user for each order
+      var staged = []
+      orders.forEach(order => {
+        staged.push(order.getUser())
+      })
+      return Promise.all([orders, staged])
+    })
+    .spread((orders, ordersUsers) => {
+      orders.forEach((order, i) => {
+        order.user = ordersUsers[i]
+      })
       res.send(orders)
     }).catch(next)
 })
