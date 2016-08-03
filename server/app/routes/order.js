@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
       })
       return Promise.all(orders.concat(staged))
     })
-    .spread(() => {
+    .spread(function (){
       var orders = [].slice.call(arguments)
       console.log(require('chalk').cyan('users on orders!'), orders)
       orders.forEach((order, i) => {
