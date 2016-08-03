@@ -18,7 +18,7 @@ router.get('/', function (req, res, next){
       if (product.dateBought && new Date() - product.dateBought > 20000/*2592000000*/){ //if a product has been purchased for more than 30 days, it becomes released. may consider adding another value to the view of products with days left until availability.
         console.log(require('chalk').green('bought'), new Date() - product.dateBought, product.firstName)
         product.bought = false
-        User.findById(req.user.id)
+        User.findById(product.userId)
         .then(user => {
           return Promise.all([user.removeProduct(product), product.update({dateBought: null, bought: false})])
         })
