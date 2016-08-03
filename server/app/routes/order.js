@@ -19,6 +19,16 @@ router.get('/', function(req, res, next) {
     }).catch(next)
 })
 
+router.get('/:userId', function(req, res, next) {
+  User.findById(req.user.id)
+    .then(function(user) {
+      return user.getOrders()
+    })
+    .then(function (orders){
+      res.send(orders)
+    })
+    .catch(next)
+})
 router.get('/:userId/:id', function(req, res, next) {
   Order.findById(req.params.id)
     .then(function(order) {
@@ -34,3 +44,4 @@ router.get('/:userId/:id', function(req, res, next) {
     })
     .catch(next)
 })
+

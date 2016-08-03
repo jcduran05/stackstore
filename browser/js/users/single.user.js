@@ -8,7 +8,7 @@ app.config(function($stateProvider) {
 
 });
 
-app.controller('SingleUserController', function($scope, $log, UserFactory, $stateParams) {
+app.controller('SingleUserController', function($scope, $log, UserFactory, $stateParams, $state) {
 
   $scope.error = null;
   $scope.passwordConfirmed = null;
@@ -59,5 +59,9 @@ app.controller('SingleUserController', function($scope, $log, UserFactory, $stat
 
   $scope.changeForm = function (){
     $scope.edit = true;
+  }
+
+  $scope.viewOrders = function (){
+    $state.go('userOrders')
   }
 });
