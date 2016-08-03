@@ -10,8 +10,8 @@ app.factory('OrderFactory', function($http) {
     });
   }
 
-  OrderFactory.fetchOne = function(id) {
-    return $http.get('/api/orders/' + id)
+  OrderFactory.fetchOne = function(id, userId) {
+    return $http.get('/api/orders/' + userId + '/' + id)
     .then(function(response) {
       return response.data;
     })
