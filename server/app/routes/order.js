@@ -22,6 +22,7 @@ router.get('/', function(req, res, next) {
       return Promise.all([orders, staged])
     })
     .spread((orders, ordersUsers) => {
+      console.log(require('chalk').cyan('users on orders!'), ordersUsers)
       orders.forEach((order, i) => {
         order.user = ordersUsers[i]
       })
