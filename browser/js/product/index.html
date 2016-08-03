@@ -35,9 +35,9 @@
         <div class ="caption">
           <section ng-show="!turnon">
           <a ui-sref="product({id: product.id})"><h3>{{product.firstName + " " + product.lastName}}</h3></a>
-          <p ng-show='isAdmin'><strong>Price:</strong> {{"$" + product.price+ " "}}</p>
-          <p ng-show='isAdmin'><strong>Party:</strong> {{product.party}}</p>
-          <p ng-show='isAdmin'><strong>State:</strong> {{product.state}}</p>
+          <p><strong>Price:</strong> {{"$" + product.price+ " "}}</p>
+          <p><strong>Party:</strong> {{product.party}}</p>
+          <p><strong>State:</strong> {{product.state}}</p>
           </section>
 
           <section ng-show = "turnon">

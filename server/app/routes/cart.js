@@ -11,12 +11,6 @@ var stripeConfig= require('../../env').STRIPE;
 var stripe = require('stripe')(stripeConfig.testSecretKey)
 
 router.get('/', function(req, res, next){
-  if (req.user){
-    User.findById(req.user.id)
-    .then(user =>{
-      console.log(chalk.green('stored cart'), user.cart)
-    })
-  }
 	res.send(req.session.cart ? req.session.cart : [])
 })
 
