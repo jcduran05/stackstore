@@ -30,7 +30,7 @@ app.config(function($stateProvider) {
 
 });
 
-app.controller('UserOrdersController', function($scope, $log, OrderFactory, $state, $stateParams.userId) {
+app.controller('UserOrdersController', function($scope, $log, OrderFactory, $state, $stateParams) {
 
   $scope.orders = null
 
