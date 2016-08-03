@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/:userId', function(req, res, next) {
-  User.findById(req.user.id)
+  User.findById(req.params.userId)
     .then(function(user) {
       return user.getOrders()
     })
