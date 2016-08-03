@@ -8,7 +8,7 @@ var Order = db.model('order')
 var Promise = require('bluebird')
 var chalk = require('chalk')
 var stripeConfig= require('../../env').STRIPE;
-var stripe = require('stripe')(stripeConfig.testSecretKey)
+// var stripe = require('stripe')(stripeConfig.testSecretKey)
 
 router.get('/', function(req, res, next){
 	res.send(req.session.cart ? req.session.cart : [])

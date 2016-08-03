@@ -9,7 +9,7 @@ var supertest = require('supertest');
 var app = require('../../../server/app');
 var Promise = require('bluebird');
 
-describe('Members Route', function () {
+xdescribe('Members Route', function () {
 
     var app, User;
 
