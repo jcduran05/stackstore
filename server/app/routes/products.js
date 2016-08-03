@@ -15,10 +15,10 @@ router.get('/', function (req, res, next){
     if (!req.session.cart) req.session.cart = [];
     products.forEach(product => {
 
-      if (product.dateBought && new Date() - product.dateBought > 2000/*2592000000*/){ //if a product has been purchased for more than 30 days, it becomes released. may consider adding another value to the view of products with days left until availability.
+      if (product.dateBought && new Date() - product.dateBought > 20000/*2592000000*/){ //if a product has been purchased for more than 30 days, it becomes released. may consider adding another value to the view of products with days left until availability.
         console.log(require('chalk').green('bought'), new Date() - product.dateBought, product.firstName)
         product.bought = false
-        User.findById(req.user.id)
+        User.findById(product.userId)
         .then(user => {
           return Promise.all([user.removeProduct(product), product.update({dateBought: null, bought: false})])
         })
@@ -92,9 +92,6 @@ router.put('/:id/review/:reviewId', function (req, res, next){
   req.body.userId = req.user.id;
   Review.findById(req.params.reviewId)
   .then(function(review) {
-
-    // console.log(review);
-
     return review.update(req.body)
   })
   .then(function(review) {
@@ -104,13 +101,13 @@ router.put('/:id/review/:reviewId', function (req, res, next){
 })
 
 router.put('/:id', function (req, res, next){
-  console.log("HERET")
+
   if(req.user.status!='admin'){
     res.status(403).send("forbidden")
     return
   }
 	Product.findById(req.params.id)
-  
+
   .then(function (product){
     product.update(req.body)
   }).then(function (){
@@ -137,6 +134,12 @@ router.delete('/:id', function(req, res, next){ //deleting a politician restrict
 
 router.post('/create', function (req, res, next){
   // check that product doesnt already exist
+
+  if (req.user.status !== 'admin'){
+    res.status(401).send('Unauthorized')
+    return
+  }
+
   Product.findOne({where: {firstName: req.body.firstName, lastName: req.body.lastName}})
   .then(function(productMatch){
   if (productMatch) return Sequelize.Promise.reject("Already Created")

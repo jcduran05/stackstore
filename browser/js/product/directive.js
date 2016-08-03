@@ -16,9 +16,6 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
       scope.isAdmin = null;
       scope.test = 'low to high'
 
-      if($rootScope.user) scope.isAdmin = ($rootScope.user.status === "admin" ? true: false)
-      else scope.isAdmin = false
-
       scope.priceSearch = '';
       scope.below = function (product){
         if (product.price < scope.priceSearch || scope.priceSearch == '') {
@@ -26,7 +23,6 @@ app.directive('testProducts', function(productFactory, $state, CartFactory, IsAd
         }
         return false;
       }
-
 
       IsAdminFactory.isAdmin()
       .then(function(status){

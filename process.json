@@ -1,0 +1,22 @@
+{
+  "apps" : [{
+    "script"      : "server/start.js",
+    "watch"       : true,
+    "env": {
+      "NODE_ENV": "development",
+    },
+    "env_production" : {
+	"NODE_ENV": "production",
+	"DATABASE_URI": "postgres://poly:poly@198.199.69.65:5432/poly",
+	"SESSION_SECRET": "Optimus Prime is my real dad"
+    }
+  }],
+  "deploy" :{
+      "production" :{
+      "DATABASE_URI": "postgres://poly:poly@198.199.69.65:5432/poly",
+       "SESSION_SECRET": "Optimus Prime is my real dad"
+      }
+
+  }
+}
+

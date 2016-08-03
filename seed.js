@@ -40,7 +40,7 @@ for (var idx in politiciansObj.objects) {
     role: politicianObj.role_type,
     state: politicianObj.state,
     website: politicianObj.website,
-    price: Math.floor(Math.random() * 1000000),
+    price: Math.floor(Math.random() * 10000),
     picurl: 'default.png'
   };
   if (politician.firstName == 'Bernard') break;
@@ -86,7 +86,7 @@ var trendingProducts = function(){
         party: 'Republican',
         price: '20',
         state: 'NY',
-        picurl: 'Donald-trump-history-hair.jpg',
+        picurl: 'donald-trump-history-hair.jpg',
         rating: '1',
 
     },{

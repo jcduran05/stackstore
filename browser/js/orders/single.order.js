@@ -1,7 +1,7 @@
 
 app.config(function($stateProvider) {
   $stateProvider.state('order', {
-    url: '/orders/:id',
+    url: '/orders/:userId/:id',
     controller: 'SingleOrderController',
     templateUrl: 'js/orders/single.order.html'
   });
@@ -12,7 +12,7 @@ app.controller('SingleOrderController', function($scope, $log, OrderFactory, $st
 
   $scope.order = null
 
-  OrderFactory.fetchOne($stateParams.id)
+  OrderFactory.fetchOne($stateParams.id, $stateParams.userId)
   .then(function(data){
     $scope.order = data.order
     $scope.products = data.products.map(function (product, i){

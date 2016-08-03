@@ -1,5 +1,5 @@
 module.exports = {
-  "DATABASE_URI": "postgres://localhost:5432/fsg",
+  "DATABASE_URI": "postgres://poly:poly@localhost/fsg",
   "SESSION_SECRET": "Optimus Prime is my real dad",
   "TWITTER": {
     "consumerKey": "oZFm5vMUG0PlZbBTaUyDvin4B",
